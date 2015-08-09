@@ -2,7 +2,7 @@ import gulp from 'gulp';
 
 gulp.task('clean', (done) => {
     let del = require('del');
-    del(['build/', 'lib/*.js'], done);
+    del(['build/'], done);
 });
 
 // Build
