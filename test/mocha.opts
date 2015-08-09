@@ -1,0 +1,4 @@
+--inline-diffs
+--reporter spec
+--require index
+test/*.es6
