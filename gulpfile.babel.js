@@ -27,7 +27,7 @@ gulp.task('build:package', ['clean'], () => {
     let editor = require('gulp-json-editor');
     gulp.src('./package.json')
         .pipe(editor( (p) => {
-            p.main = 'lib/scss-parse';
+            p.main = 'lib/scss-syntax';
             p.devDependencies['babel-core'] = p.dependencies['babel-core'];
             delete p.dependencies['babel-core'];
             return p;
@@ -57,10 +57,14 @@ gulp.task('test', () => {
 
 gulp.task('integration', (done) => {
     require('babel-core/register')({ extensions: ['.es6'], ignore: false });
-    let real = require('postcss-parser-tests/real');
-    let scss = require('./');
-    real(done, [['Browserhacks', 'http://browserhacks.com/']], (css) => {
-        return scss(css).toResult({ map: { annotation: false } });
+    let postcss = require('postcss');
+    let real    = require('postcss-parser-tests/real');
+    let scss    = require('./');
+    real(done, (css) => {
+        return postcss().process(css, {
+            parser: scss,
+            map:    { annotation: false }
+        });
     });
 });
 
