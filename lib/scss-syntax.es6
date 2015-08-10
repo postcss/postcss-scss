@@ -1,3 +1,4 @@
-import parse from './scss-parse';
+import stringify from './scss-stringify';
+import parse     from './scss-parse';
 
-export { parse };
+export { parse, stringify };
