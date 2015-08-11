@@ -6,11 +6,9 @@
 
 A [SCSS] parser for [PostCSS].
 
-**This parser does not compile SCSS.**
-It does not apply mixins, math or variables.
-It just parses mixins as custom at-rules and variables as properties.
-Even PostCSS AST is simplier, that SCSS, so math and interpolation
-will be parsed as strings.
+**This module does not compile SCSS.** It simply parses mixins as custom
+at-rules & variables as properties, so that PostCSS plugins can then transform
+SCSS source code alongside CSS.
 
 [PostCSS]: https://github.com/postcss/postcss
 [ci-img]:  https://img.shields.io/travis/postcss/postcss-scss.svg
@@ -25,9 +23,10 @@ will be parsed as strings.
 
 ### SCSS Transformations
 
-The main user case of this plugin, apply PostCSS transformations directy
-to SCSS sources. For example, you want to lint your SCSS by [Stylelint].
-Or you ship themes in SCSS and need to apply [Autoprefixer].
+The main use case of this plugin is to apply PostCSS transformations directly
+to SCSS source code. For example, if you ship a theme written in SCSS and need
+[Autoprefixer] to add the appropriate vendor prefixes to it; or you need to
+lint SCSS with a plugin such as [Stylelint].
 
 ```js
 var syntax = require('postcss-scss');
@@ -41,8 +40,7 @@ postcss(plugins).process(scss, { syntax: syntax }).then(function (result) {
 
 ### Inline Comments for PostCSS
 
-Other user case for this parser is just enable one line comments
-in your PostCSS sources.
+This module also enables parsing of single-line comments in CSS source code.
 
 ```scss
 :root {
@@ -51,8 +49,8 @@ in your PostCSS sources.
 }
 ```
 
-For this case, you should use only SCSS input parser
-with default CSS output stringifier.
+Note that you don't need a special stringifier to handle the output; the default
+one will automatically convert single line comments into block comments.
 
 ```js
 var syntax = require('postcss-scss');
