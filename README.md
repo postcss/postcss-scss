@@ -6,9 +6,9 @@
 
 A [SCSS] parser for [PostCSS].
 
-*This parser does not compile SCSS.*
+**This parser does not compile SCSS.**
 It does not apply mixins, math or variables.
-It just parses mixins as custom at-rules and variables as properties.
+It just parses mixins as custom at-rules and variables as properties.
 Even PostCSS AST is simplier, that SCSS, so math and interpolation
 will be parsed as strings.
 
@@ -26,7 +26,7 @@ will be parsed as strings.
 ### SCSS Transformations
 
 The main user case of this plugin, apply PostCSS transformations directy
-to SCSS sources. For example, you want to lint your SCSS by [Stylelint].
+to SCSS sources. For example, you want to lint your SCSS by [Stylelint].
 Or you ship themes in SCSS and need to apply [Autoprefixer].
 
 ```js
