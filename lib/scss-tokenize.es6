@@ -15,6 +15,7 @@ const SEMICOLON         =  59; // `;'
 const ASTERICK          =  42; // `*'
 const COLON             =  58; // `:'
 const AT                =  64; // `@'
+const HASH              =  35; // `#'
 const RE_AT_END         = /[ \n\t\r\{\(\)'"\\;/]/g;
 const RE_WORD_END       = /[ \n\t\r\(\)\{\}:;@!'"\\]|\/(?=\*)/g;
 const RE_BAD_BRACKET    = /.[\\\/\("'\n]/;
@@ -187,7 +188,34 @@ export default function scssTokenize(input) {
             break;
 
         default:
-            if ( code === SLASH && css.charCodeAt(pos + 1) === ASTERICK ) {
+            n = css.charCodeAt(pos + 1);
+
+            if ( code === HASH && n === OPEN_CURLY ) {
+                next = css.indexOf('}', pos + 2);
+                if ( next === -1 ) unclosed('interpolation');
+
+                content = css.slice(pos, next + 1);
+                lines   = content.split('\n');
+                last    = lines.length - 1;
+
+                if ( last > 0 ) {
+                    nextLine   = line + last;
+                    nextOffset = next - lines[last].length;
+                } else {
+                    nextLine   = line;
+                    nextOffset = offset;
+                }
+
+                tokens.push(['word', content,
+                    line,     pos  - offset,
+                    nextLine, next - nextOffset
+                ]);
+
+                offset = nextOffset;
+                line   = nextLine;
+                pos    = next;
+
+            } else if ( code === SLASH && n === ASTERICK ) {
                 next = css.indexOf('*/', pos + 2) + 1;
                 if ( next === 0 ) unclosed('comment');
 
@@ -212,7 +240,7 @@ export default function scssTokenize(input) {
                 line   = nextLine;
                 pos    = next;
 
-            } else if ( code === SLASH && css.charCodeAt(pos + 1) === SLASH ) {
+            } else if ( code === SLASH && n === SLASH ) {
                 next = css.indexOf('\n', pos + 2) - 1;
                 if ( next === -2 ) next = css.length - 1;
 

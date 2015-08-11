@@ -64,4 +64,16 @@ describe('SCSS Parser', () => {
         expect(root.first.first.value).to.eql('url(http://ya.ru)');
     });
 
+    it('parses interpolation', () => {
+        let root = parse('#{$selector}:hover { #{$prop}: #{$color} }');
+        expect(root.first.selector).to.eql('#{$selector}:hover');
+        expect(root.first.first.prop).to.eql('#{$prop}');
+        expect(root.first.first.value).to.eql('#{$color}');
+    });
+
+    it('parses non-interpolation', () => {
+        let root = parse('\\#{ color: black }');
+        expect(root.first.selector).to.eql('\\#');
+    });
+
 });
