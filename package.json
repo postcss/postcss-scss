@@ -5,6 +5,7 @@
   "keywords": [
     "css",
     "postcss",
+    "postcss-syntax",
     "parser",
     "scss",
     "sass"
