@@ -17,20 +17,20 @@
     "url":  "https://github.com/postcss/postcss-scss.git"
   },
   "dependencies": {
-    "babel-core": "5.8.21",
-    "postcss":    "postcss/postcss#valac"
+    "babel-core": "5.8.22",
+    "postcss":    "postcss/postcss"
   },
   "devDependencies": {
-    "postcss-parser-tests": "postcss/postcss-parser-tests",
+    "postcss-parser-tests": "5.0.0",
     "gulp-json-editor":     "2.2.1",
-    "babel-eslint":         "4.0.5",
+    "babel-eslint":         "4.0.10",
     "gulp-eslint":          "1.0.0",
     "gulp-babel":           "5.2.0",
     "gulp-mocha":           "2.1.3",
     "mocha":                "2.2.5",
     "gulp":                 "3.9.0",
     "chai":                 "3.2.0",
-    "del":                  "1.2.0"
+    "del":                  "1.2.1"
   },
   "scripts": {
     "test": "gulp"
