@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "babel-core": "5.8.22",
-    "postcss":    "postcss/postcss"
+    "postcss":    "^5.0.0"
   },
   "devDependencies": {
     "postcss-parser-tests": "5.0.0",
