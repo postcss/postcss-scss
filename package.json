@@ -17,15 +17,15 @@
     "url":  "https://github.com/postcss/postcss-scss.git"
   },
   "dependencies": {
-    "babel-core": "5.8.22",
-    "postcss":    "^5.0.0"
+    "babel-core": "5.8.23",
+    "postcss":    "^5.0.3"
   },
   "devDependencies": {
-    "postcss-parser-tests": "5.0.0",
+    "postcss-parser-tests": "5.0.1",
     "gulp-json-editor":     "2.2.1",
-    "babel-eslint":         "4.0.10",
+    "babel-eslint":         "4.1.0",
     "gulp-eslint":          "1.0.0",
-    "gulp-babel":           "5.2.0",
+    "gulp-babel":           "5.2.1",
     "gulp-mocha":           "2.1.3",
     "mocha":                "2.2.5",
     "gulp":                 "3.9.0",

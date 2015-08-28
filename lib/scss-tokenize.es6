@@ -87,7 +87,9 @@ export default function scssTokenize(input) {
         case OPEN_PARENTHESES:
             prev = tokens.length ? tokens[tokens.length - 1][1] : '';
             n    = css.charCodeAt(pos + 1);
-            if ( prev === 'url' && n !== SINGLE_QUOTE && n !== DOUBLE_QUOTE ) {
+            if ( prev === 'url' && n !== SINGLE_QUOTE && n !== DOUBLE_QUOTE &&
+                                   n !== SPACE && n !== NEWLINE && n !== TAB &&
+                                   n !== FEED && n !== CR ) {
                 next = pos;
                 do {
                     escaped = false;
