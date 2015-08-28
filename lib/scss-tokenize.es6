@@ -14,6 +14,7 @@ const CLOSE_CURLY       = 125; // `}'
 const SEMICOLON         =  59; // `;'
 const ASTERICK          =  42; // `*'
 const COLON             =  58; // `:'
+const COMMA             =  44; // ','
 const AT                =  64; // `@'
 const HASH              =  35; // `#'
 const RE_AT_END         = /[ \n\t\r\{\(\)'"\\;/]/g;
@@ -82,6 +83,11 @@ export default function scssTokenize(input) {
 
         case SEMICOLON:
             tokens.push([';', ';', line, pos - offset]);
+            break;
+
+        case COMMA:
+            tokens.push(['word', ',', line, pos - offset,
+                                      line, pos - offset + 1]);
             break;
 
         case OPEN_PARENTHESES:
