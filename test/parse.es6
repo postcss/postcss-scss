@@ -71,6 +71,11 @@ describe('SCSS Parser', () => {
         expect(root.first.first.value).to.eql('#{$color}');
     });
 
+    it('parses interpolation inside word', () => {
+        let root = parse('.#{class} {}');
+        expect(root.first.selector).to.eql('.#{class}');
+    });
+
     it('parses non-interpolation', () => {
         let root = parse('\\#{ color: black }');
         expect(root.first.selector).to.eql('\\#');

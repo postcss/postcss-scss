@@ -18,7 +18,7 @@ const COMMA             =  44; // ','
 const AT                =  64; // `@'
 const HASH              =  35; // `#'
 const RE_AT_END         = /[ \n\t\r\{\(\)'"\\;/]/g;
-const RE_WORD_END       = /[ \n\t\r\(\)\{\}:;@!'"\\]|\/(?=\*)/g;
+const RE_WORD_END       = /[ \n\t\r\(\)\{\}:;@!'"\\#]|\/(?=\*)/g;
 const RE_BAD_BRACKET    = /.[\\\/\("'\n]/;
 
 export default function scssTokenize(input) {
