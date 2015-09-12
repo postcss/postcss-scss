@@ -65,9 +65,9 @@ describe('SCSS Parser', () => {
     });
 
     it('parses interpolation', () => {
-        let root = parse('#{$selector}:hover { #{$prop}: #{$color} }');
+        let root = parse('#{$selector}:hover { #{$prop}-size: #{$color} }');
         expect(root.first.selector).to.eql('#{$selector}:hover');
-        expect(root.first.first.prop).to.eql('#{$prop}');
+        expect(root.first.first.prop).to.eql('#{$prop}-size');
         expect(root.first.first.value).to.eql('#{$color}');
     });
 
