@@ -22,6 +22,12 @@ describe('SCSS Parser', () => {
         expect(root.first.first.name).to.eql('media');
     });
 
+    it('parses nested at-rules without semicolons', () => {
+        let root = parse('a { @include foo($var: true) }');
+        expect(root.first.first.name).to.eql('include');
+        expect(root.first.first.params).to.eql('foo($var: true)');
+    });
+
     it('parses variables', () => {
         let root = parse('$var: 1;');
         expect(root.first.prop).to.eql('$var');
