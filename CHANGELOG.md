@@ -1,3 +1,6 @@
+## 0.1.3
+* Fix ES2015 module export.
+
 ## 0.1.2
 * Fix interpolation inside string.
 
