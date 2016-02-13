@@ -28,7 +28,7 @@ export default class ScssParser extends Parser {
                 node.raws.right = match[3];
             }
         } else {
-            super(token);
+            super.comment(token);
         }
     }
 

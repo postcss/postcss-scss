@@ -25,12 +25,20 @@ gulp.task('build:docs', ['clean'], () => {
 
 gulp.task('build:package', ['clean'], () => {
     let editor = require('gulp-json-editor');
+    let builders = [
+        'babel-plugin-add-module-exports',
+        'babel-preset-es2015-loose',
+        'babel-preset-stage-0',
+        'babel-core'
+    ];
     gulp.src('./package.json')
-        .pipe(editor( (p) => {
-            p.main = 'lib/scss-syntax';
-            p.devDependencies['babel-core'] = p.dependencies['babel-core'];
-            delete p.dependencies['babel-core'];
-            return p;
+        .pipe(editor( json => {
+            json.main = 'lib/scss-syntax';
+            for ( let i of builders ) {
+                json.devDependencies[i] = json.dependencies[i];
+                delete json.dependencies[i];
+            }
+            return json;
         }))
         .pipe(gulp.dest('build'));
 });
@@ -55,12 +63,12 @@ gulp.task('test', () => {
     return gulp.src('test/*.es6', { read: false }).pipe(mocha());
 });
 
-gulp.task('integration', (done) => {
+gulp.task('integration', done => {
     require('babel-core/register')({ extensions: ['.es6'], ignore: false });
     let postcss = require('postcss');
     let real    = require('postcss-parser-tests/real');
     let scss    = require('./');
-    real(done, (css) => {
+    real(done, css => {
         return postcss().process(css, {
             parser: scss,
             map:    { annotation: false }

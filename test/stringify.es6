@@ -12,7 +12,9 @@ describe('stringify', () => {
         it('stringifies ' + name, () => {
             let root   = parse(css);
             let result = '';
-            stringify(root, i => result += i );
+            stringify(root, i => {
+                result += i;
+            });
             expect(result).to.eql(css);
         });
     });
@@ -20,14 +22,18 @@ describe('stringify', () => {
     it('stringifies inline comment', () => {
         let root   = parse('// comment\na {}');
         let result = '';
-        stringify(root, i => result += i );
+        stringify(root, i => {
+            result += i;
+        });
         expect(result).to.eql('// comment\na {}');
     });
 
     it('stringifies inline comment in the end of file', () => {
         let root   = parse('// comment');
         let result = '';
-        stringify(root, i => result += i );
+        stringify(root, i => {
+            result += i;
+        });
         expect(result).to.eql('// comment');
     });
 
