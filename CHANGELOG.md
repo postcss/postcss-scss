@@ -1,3 +1,6 @@
+## 0.1.4
+* Fix CSS syntax error position on unclosed quotes.
+
 ## 0.1.3
 * Fix ES2015 module export.
 
