@@ -12,10 +12,7 @@
   ],
   "author": "Andrey Sitnik <andrey@sitnik.ru>",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url":  "https://github.com/postcss/postcss-scss.git"
-  },
+  "repository": "postcss/postcss-scss",
   "dependencies": {
     "babel-plugin-add-module-exports": "0.1.2",
     "babel-preset-es2015-loose":       "7.0.0",
