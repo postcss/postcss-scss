@@ -18,9 +18,9 @@ const AT                =  '@'.charCodeAt(0);
 const COMMA             =  ','.charCodeAt(0);
 const HASH              =  '#'.charCodeAt(0);
 
-const RE_AT_END         = /[ \n\t\r\{\(\)'"\\;/]/g;
-const RE_WORD_END       = /[ \n\t\r\(\)\{\}:;@!'"\\#]|\/(?=\*)/g;
-const RE_BAD_BRACKET    = /.[\\\/\("'\n]/;
+const RE_AT_END      = /[ \n\t\r\{\(\)'"\\;/]/g;
+const RE_WORD_END    = /[ \n\t\r\(\)\{\}:;@!'"\\#]|\/(?=\*)/g;
+const RE_BAD_BRACKET = /.[\\\/\("'\n]/;
 
 export default function scssTokenize(input) {
     let tokens = [];
