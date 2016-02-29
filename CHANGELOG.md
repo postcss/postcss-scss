@@ -1,3 +1,6 @@
+## 0.1.6
+* Parse new lines according W3C CSS syntax specification.
+
 ## 0.1.5
 * Fix package dependencies.
 
