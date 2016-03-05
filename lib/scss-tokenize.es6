@@ -19,6 +19,7 @@ const COMMA             =  ','.charCodeAt(0);
 const HASH              =  '#'.charCodeAt(0);
 
 const RE_AT_END      = /[ \n\t\r\f\{\(\)'"\\;/]/g;
+const RE_NEW_LINE    = /[\r\f\n]/g;
 const RE_WORD_END    = /[ \n\t\r\f\(\)\{\}:;@!'"\\#]|\/(?=\*)/g;
 const RE_BAD_BRACKET = /.[\\\/\("'\n]/;
 
@@ -266,8 +267,13 @@ export default function scssTokenize(input) {
                 pos    = next;
 
             } else if ( code === SLASH && n === SLASH ) {
-                next = css.indexOf('\n', pos + 2) - 1;
-                if ( next === -2 ) next = css.length - 1;
+                RE_NEW_LINE.lastIndex = pos + 1;
+                RE_NEW_LINE.test(css);
+                if ( RE_NEW_LINE.lastIndex === 0 ) {
+                    next = css.length - 1;
+                } else {
+                    next = RE_NEW_LINE.lastIndex - 2;
+                }
 
                 content = css.slice(pos, next + 1);
 

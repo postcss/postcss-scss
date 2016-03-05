@@ -9,12 +9,17 @@ let test = (css, tokens) => {
 
 describe('SCSS Tokenizer', () => {
 
-    it('tokenizes inine comments', () => {
+    it('tokenizes inline comments', () => {
         test('// a\n', [ ['comment', '// a', 1, 1, 1, 4, 'inline'],
                          ['space', '\n'] ]);
     });
 
-    it('tokenizes inine comments in end of file', () => {
+    it('tokenizes inline comments with any new line', () => {
+        test('// a\r\n', [ ['comment', '// a', 1, 1, 1, 4, 'inline'],
+                           ['space', '\r\n'] ]);
+    });
+
+    it('tokenizes inline comments in end of file', () => {
         test('// a', [ ['comment', '// a', 1, 1, 1, 4, 'inline'] ]);
     });
 
