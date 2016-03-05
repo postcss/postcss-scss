@@ -1,3 +1,6 @@
+## 0.1.7
+* Fix inline comments with Windows new lines.
+
 ## 0.1.6
 * Parse new lines according W3C CSS syntax specification.
 
