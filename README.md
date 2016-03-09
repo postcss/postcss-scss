@@ -58,3 +58,13 @@ postcss(plugins).process(scss, { parser: syntax }).then(function (result) {
     result.css // CSS with normal comments
 });
 ```
+
+You can pass the boolean option stripSingleLineComment to remove single line comments 
+rather than convert them to ```/* standard comments */```
+
+```js
+var syntax = require('postcss-scss');
+postcss(plugins).process(scss, { parser: syntax, stripSingleLineComment: true }).then(function (result) {
+    result.css // CSS with normal comments
+});
+```

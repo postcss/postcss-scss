@@ -23,7 +23,7 @@ const RE_NEW_LINE    = /[\r\f\n]/g;
 const RE_WORD_END    = /[ \n\t\r\f\(\)\{\}:;@!'"\\#]|\/(?=\*)/g;
 const RE_BAD_BRACKET = /.[\\\/\("'\n]/;
 
-export default function scssTokenize(input) {
+export default function scssTokenize(input, opts) {
     let tokens = [];
     let css    = input.css.valueOf();
 
@@ -34,6 +34,10 @@ export default function scssTokenize(input) {
     let offset = -1;
     let line   =  1;
     let pos    =  0;
+
+    let defaults = Object.assign({
+        stripSingleLineComment: false
+    }, opts || {});
 
     function unclosed(what) {
         throw input.error('Unclosed ' + what, line, pos - offset);
@@ -272,16 +276,28 @@ export default function scssTokenize(input) {
                 if ( RE_NEW_LINE.lastIndex === 0 ) {
                     next = css.length - 1;
                 } else {
-                    next = RE_NEW_LINE.lastIndex - 2;
+                    let i = defaults.stripSingleLineComment ? 1 : 2;
+                    next = RE_NEW_LINE.lastIndex - i;
                 }
 
-                content = css.slice(pos, next + 1);
+                if (!defaults.stripSingleLineComment) {
+                    content = css.slice(pos, next + 1);
 
-                tokens.push(['comment', content,
-                    line, pos  - offset,
-                    line, next - offset,
-                    'inline'
-                ]);
+                    tokens.push(['comment', content,
+                        line, pos  - offset,
+                        line, next - offset,
+                        'inline'
+                    ]);
+                } else {
+                    let token = tokens[tokens.length - 1];
+                    if (token && token[0] === 'space') {
+                        if (token[1].charCodeAt(0) === NEWLINE) {
+                            token[1] = '\n';
+                        } else {
+                            tokens.pop();
+                        }
+                    }
+                }
 
                 pos = next;
 
