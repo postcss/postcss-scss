@@ -6,7 +6,7 @@ export default function scssParse(scss, opts) {
     let input = new Input(scss, opts);
 
     let parser = new ScssParser(input);
-    parser.tokenize();
+    parser.tokenize(opts);
     parser.loop();
 
     return parser.root;
