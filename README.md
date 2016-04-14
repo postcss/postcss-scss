@@ -49,7 +49,7 @@ This module also enables parsing of single-line comments in CSS source code.
 }
 ```
 
-Note that you don't need a special stringifier to handle the output; the default
+Note that you don’t need a special stringifier to handle the output; the default
 one will automatically convert single line comments into block comments.
 
 ```js
@@ -58,3 +58,8 @@ postcss(plugins).process(scss, { parser: syntax }).then(function (result) {
     result.css // CSS with normal comments
 });
 ```
+
+If you want Sass behaviour with removing inline comments, you can use
+[postcss-strip-inline-comments] plugin.
+
+[postcss-strip-inline-comments]: https://github.com/mummybot/postcss-strip-inline-comments
