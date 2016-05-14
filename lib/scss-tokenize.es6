@@ -18,7 +18,7 @@ const AT                =  '@'.charCodeAt(0);
 const COMMA             =  ','.charCodeAt(0);
 const HASH              =  '#'.charCodeAt(0);
 
-const RE_AT_END      = /[ \n\t\r\f\{\(\)'"\\;/]/g;
+const RE_AT_END      = /[ \n\t\r\f\{\(\)'"\\;/#]/g;
 const RE_NEW_LINE    = /[\r\f\n]/g;
 const RE_WORD_END    = /[ \n\t\r\f\(\)\{\}:;@!'"\\#]|\/(?=\*)/g;
 const RE_BAD_BRACKET = /.[\\\/\("'\n]/;

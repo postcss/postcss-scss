@@ -86,4 +86,9 @@ describe('SCSS Parser', () => {
         expect(root.first.value).to.eql('#{"#{&}__column"}');
     });
 
+    it('parses interpolation right after at-rule', () => {
+        let root = parse('@media#{$var} { }');
+        expect(root.first.params).to.eql('#{$var}');
+    });
+
 });
