@@ -217,8 +217,21 @@ export default function scssTokenize(input) {
             n = css.charCodeAt(pos + 1);
 
             if ( code === HASH && n === OPEN_CURLY ) {
-                next = css.indexOf('}', pos + 2);
-                if ( next === -1 ) unclosed('interpolation');
+                let deep = 1;
+                next = pos;
+                while ( deep > 0 ) {
+                    next += 1;
+                    if ( css.length <= next ) unclosed('interpolation');
+
+                    code  = css.charCodeAt(next);
+                    n     = css.charCodeAt(next + 1);
+
+                    if ( code === CLOSE_CURLY ) {
+                        deep -= 1;
+                    } else if ( code === HASH && n === OPEN_CURLY ) {
+                        deep += 1;
+                    }
+                }
 
                 content = css.slice(pos, next + 1);
                 lines   = content.split('\n');

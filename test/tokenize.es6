@@ -27,4 +27,8 @@ describe('SCSS Tokenizer', () => {
         test('#{a\nb}', [ ['word', '#{a\nb}', 1, 1, 2, 2] ]);
     });
 
+    it('tokenizes interpolations', () => {
+        test('#{#{#{}}}', [ ['word', '#{#{#{}}}', 1, 1, 1, 9] ]);
+    });
+
 });

@@ -81,4 +81,9 @@ describe('SCSS Parser', () => {
         expect(root.first.selector).to.eql('\\#');
     });
 
+    it('parses interpolation inside interpolation', () => {
+        let root = parse('$column: #{"#{&}__column"};');
+        expect(root.first.value).to.eql('#{"#{&}__column"}');
+    });
+
 });
