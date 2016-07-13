@@ -44,6 +44,9 @@ gulp.task('build', ['build:lib', 'build:docs', 'build:package']);
 // Lint
 
 gulp.task('lint', () => {
+    if ( parseInt(process.versions.node) < 4 ) {
+        return false;
+    }
     let eslint = require('gulp-eslint');
     return gulp.src(['*.js', 'lib/*.es6', 'test/*.es6'])
         .pipe(eslint())
