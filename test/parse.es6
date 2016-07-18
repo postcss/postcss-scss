@@ -91,4 +91,9 @@ describe('SCSS Parser', () => {
         expect(root.first.params).to.eql('#{$var}');
     });
 
+    it('parses interpolation in url()', () => {
+        let root = parse('image: url(#{get(path)}.png)');
+        expect(root.first.value).to.eql('url(#{get(path)}.png)');
+    });
+
 });

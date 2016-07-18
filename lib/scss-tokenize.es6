@@ -28,7 +28,7 @@ export default function scssTokenize(input) {
     let css    = input.css.valueOf();
 
     let code, next, quote, lines, last, content, escape,
-        nextLine, nextOffset, escaped, escapePos, prev, n;
+        nextLine, nextOffset, escaped, escapePos, prev, n, brackets;
 
     let length = css.length;
     let offset = -1;
@@ -99,17 +99,22 @@ export default function scssTokenize(input) {
             if ( prev === 'url' && n !== SINGLE_QUOTE && n !== DOUBLE_QUOTE &&
                                    n !== SPACE && n !== NEWLINE && n !== TAB &&
                                    n !== FEED && n !== CR ) {
-                next = pos;
-                do {
-                    escaped = false;
-                    next    = css.indexOf(')', next + 1);
-                    if ( next === -1 ) unclosed('bracket');
-                    escapePos = next;
-                    while ( css.charCodeAt(escapePos - 1) === BACKSLASH ) {
-                        escapePos -= 1;
+
+                brackets = 1;
+                escaped  = false;
+                next     = pos + 1;
+                while ( next <= css.length - 1 ) {
+                    n = css.charCodeAt(next);
+                    if ( n === BACKSLASH ) {
                         escaped = !escaped;
+                    } else if ( n === OPEN_PARENTHESES ) {
+                        brackets += 1;
+                    } else if ( n === CLOSE_PARENTHESES ) {
+                        brackets -= 1;
+                        if ( brackets === 0 ) break;
                     }
-                } while ( escaped );
+                    next += 1;
+                }
 
                 tokens.push(['brackets', css.slice(pos, next + 1),
                     line, pos  - offset,
