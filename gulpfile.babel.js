@@ -2,7 +2,7 @@ import gulp from 'gulp';
 
 gulp.task('clean', () => {
     let del = require('del');
-    return del(['build/']);
+    return del(['build/', 'lib/*.js']);
 });
 
 // Build
@@ -47,12 +47,12 @@ gulp.task('lint', () => {
 
 // Test
 
-gulp.task('test', () => {
+gulp.task('test', ['compile'], () => {
     let ava = require('gulp-ava');
     return gulp.src('test/*.es6', { read: false }).pipe(ava());
 });
 
-gulp.task('integration', done => {
+gulp.task('integration', ['compile'], done => {
     let postcss = require('postcss');
     let real    = require('postcss-parser-tests/real');
     let scss    = require('./');
