@@ -7,39 +7,30 @@ gulp.task('clean', () => {
 
 // Build
 
-gulp.task('build:lib', ['clean'], () => {
-    let babel = require('gulp-babel');
+gulp.task('compile', ['clean'], () => {
+    let sourcemaps = require('gulp-sourcemaps');
+    let babel      = require('gulp-babel');
     return gulp.src('lib/*.es6')
+        .pipe(sourcemaps.init())
         .pipe(babel())
-        .pipe(gulp.dest('build/lib'));
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('lib'));
+});
+
+gulp.task('build:lib', ['compile'], () => {
+    return gulp.src('lib/*.js').pipe(gulp.dest('build/lib'));
 });
 
 gulp.task('build:docs', ['clean'], () => {
     let ignore = require('fs').readFileSync('.npmignore').toString()
         .trim().split(/\n+/)
-        .concat(['.npmignore', 'package.json', 'index.js'])
+        .concat(['.npmignore'])
         .map( i => '!' + i );
     return gulp.src(['*'].concat(ignore))
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('build:package', ['clean'], () => {
-    let editor = require('gulp-json-editor');
-    gulp.src('./package.json')
-        .pipe(editor( json => {
-            json.main = 'lib/scss-syntax';
-            for ( let i in json.dependencies ) {
-                if ( /^babel-/.test(i) ) {
-                    json.devDependencies[i] = json.dependencies[i];
-                    delete json.dependencies[i];
-                }
-            }
-            return json;
-        }))
-        .pipe(gulp.dest('build'));
-});
-
-gulp.task('build', ['build:lib', 'build:docs', 'build:package']);
+gulp.task('build', ['build:lib', 'build:docs']);
 
 // Lint
 
@@ -57,13 +48,11 @@ gulp.task('lint', () => {
 // Test
 
 gulp.task('test', () => {
-    require('babel-core/register')({ extensions: ['.es6'], ignore: false });
-    let mocha = require('gulp-mocha');
-    return gulp.src('test/*.es6', { read: false }).pipe(mocha());
+    let ava = require('gulp-ava');
+    return gulp.src('test/*.es6', { read: false }).pipe(ava());
 });
 
 gulp.task('integration', done => {
-    require('babel-core/register')({ extensions: ['.es6'], ignore: false });
     let postcss = require('postcss');
     let real    = require('postcss-parser-tests/real');
     let scss    = require('./');
