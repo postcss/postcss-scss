@@ -1,3 +1,8 @@
+## 0.1.9
+* Use PostCSS 5.1.
+* Add source maos to build JS files.
+* Fix interpolation in `url()`.
+
 ## 0.1.8
 * Fix interpolation-in-interpolation parsing.
 * Fix at-rule with interpolation parsing.
