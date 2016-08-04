@@ -34,3 +34,30 @@ test('stringifies inline comment in the end of file', t => {
     });
     t.deepEqual(result, '// comment');
 });
+
+test('stringifies rule with usual props', t => {
+    let root   = parse('a { color: red; text-align: justify ; }');
+    let result = '';
+    stringify(root, i => {
+        result += i;
+    });
+    t.deepEqual(result, 'a { color: red; text-align: justify ; }');
+});
+
+test('Stringify: nested props', t => {
+    let root   = parse('a { \n margin : 0!important { left: 10px; }}');
+    let result = '';
+    stringify(root, i => {
+        result += i;
+    });
+    t.deepEqual(result, 'a { \n margin : 0!important { left: 10px; }}');
+});
+
+test('Stringify: nested props with more newlines', t => {
+    let root   = parse('a { \n margin : 0 !important \n { \n left: 10px; } \n}');
+    let result = '';
+    stringify(root, i => {
+        result += i;
+    });
+    t.deepEqual(result, 'a { \n margin : 0 !important \n { \n left: 10px; } \n}');
+});

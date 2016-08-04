@@ -93,3 +93,114 @@ test('parses interpolation in url()', t => {
     let root = parse('image: url(#{get(path)}.png)');
     t.deepEqual(root.first.value, 'url(#{get(path)}.png)');
 });
+
+// Nested properties
+test('Parse: nested props (no root prop value)', t => {
+    let root = parse('a { margin: { left: 10px; }}');
+    t.deepEqual(root.first.selector, 'a');
+
+    t.deepEqual(root.first.first.prop, 'margin');
+    t.deepEqual(root.first.first.value, '');
+
+    t.deepEqual(root.first.first.first.prop, 'left');
+    t.deepEqual(root.first.first.first.value, '10px');
+});
+
+test('Parse: nested prop with root value.', t => {
+    let root = parse('a { margin: 0 { left: 10px; }}');
+    t.deepEqual(root.first.selector, 'a');
+
+    t.deepEqual(root.first.first.prop, 'margin');
+    t.deepEqual(root.first.first.value, '0');
+    t.deepEqual(root.first.first.raws.between, ': ');
+
+    t.deepEqual(root.first.first.first.prop, 'left');
+    t.deepEqual(root.first.first.first.value, '10px');
+});
+
+test('Parse: nested prop with variable as root value (`margin:$var`).', t => {
+    let root = parse('a { margin:$var { left: 10px; }}');
+    t.deepEqual(root.first.selector, 'a');
+
+    t.deepEqual(root.first.first.prop, 'margin');
+    t.deepEqual(root.first.first.value, '$var');
+    t.deepEqual(root.first.first.raws.between, ':');
+
+    t.deepEqual(root.first.first.first.prop, 'left');
+    t.deepEqual(root.first.first.first.value, '10px');
+});
+
+test('Parse: nested prop with variable as root value (`margin :$vars`).', t => {
+    let root = parse('a { margin :$vars { left: 10px; }}');
+    t.deepEqual(root.first.selector, 'a');
+
+    t.deepEqual(root.first.first.prop, 'margin');
+    t.deepEqual(root.first.first.value, '$vars');
+    t.deepEqual(root.first.first.raws.between, ' :');
+
+    t.deepEqual(root.first.first.first.prop, 'left');
+    t.deepEqual(root.first.first.first.value, '10px');
+});
+
+test('Parse: nested prop with root value (`margin:0`).', t => {
+    let root = parse('a { margin:0 { left: 10px; }}');
+    t.deepEqual(root.first.selector, 'a');
+
+    t.deepEqual(root.first.first.prop, 'margin');
+    t.deepEqual(root.first.first.value, '0');
+    t.deepEqual(root.first.first.raws.between, ':');
+
+    t.deepEqual(root.first.first.first.prop, 'left');
+    t.deepEqual(root.first.first.first.value, '10px');
+});
+
+test('Parse: selector `margin:text` (that might look like a nested prop)', t => {
+    let root = parse('a { \n margin:text { left: 10px; }}');
+    t.deepEqual(root.first.selector, 'a');
+
+    t.deepEqual(root.first.first.prop, undefined);
+    t.deepEqual(root.first.first.selector, 'margin:text');
+});
+
+test('Parse: selector `margin  \n:after` (that might look like a nested prop)', t => {
+    let root = parse('a { \n margin  \n:after { left: 10px; }}');
+    t.deepEqual(root.first.selector, 'a');
+
+    t.deepEqual(root.first.first.prop, undefined);
+    t.deepEqual(root.first.first.selector, 'margin  \n:after');
+});
+
+test('Parse: nested prop with important', t => {
+    let root = parse('a { \n margin : 0!important { left: 10px; }}');
+    t.deepEqual(root.first.selector, 'a');
+
+    t.deepEqual(root.first.first.prop, 'margin');
+    t.deepEqual(root.first.first.value, '0');
+    t.deepEqual(root.first.first.important, true);
+});
+
+test('Parse: nested prop with CSS comment between root prop and value', t => {
+    let root = parse('a { margin: /* comment*/ 0em { left: 10px; }}');
+    t.deepEqual(root.first.selector, 'a');
+
+    t.deepEqual(root.first.first.prop, 'margin');
+    t.deepEqual(root.first.first.value, '0em');
+    
+    t.deepEqual(root.first.first.first.prop, 'left');
+    t.deepEqual(root.first.first.first.value, '10px');
+});
+
+test('Parse: nested prop with //-comment', t => {
+    let root = parse(`
+        a {
+            margin: // comment
+            {
+                left: 10px;
+            }
+        }
+    `);
+    t.deepEqual(root.first.selector, 'a');
+
+    t.deepEqual(root.first.first.prop, 'margin');
+    t.deepEqual(root.first.first.value, '');
+});
