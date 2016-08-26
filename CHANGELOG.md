@@ -1,3 +1,6 @@
+## 0.2
+* Add nested properties support (by dryoma).
+
 ## 0.1.9
 * Use PostCSS 5.1.
 * Add source maos to build JS files.
