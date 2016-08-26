@@ -1,8 +1,8 @@
 import Comment from 'postcss/lib/comment';
 import Parser  from 'postcss/lib/parser';
 
-import scssTokenizer from './scss-tokenize';
-import DeclarationNested from './declaration-nested';
+import NestedDeclaration from './nested-declaration';
+import scssTokenizer     from './scss-tokenize';
 
 export default class ScssParser extends Parser {
 
@@ -11,57 +11,31 @@ export default class ScssParser extends Parser {
     }
 
     rule(tokens) {
-        const tokensCommentless = [];
-
-        let colonIndex = null;
-        let isSpaceAfterColon = null;
-        let value = null;
-
-        // Strip comments (and join adjacent spaces) so that they don't mess
-        // the checking
-        for (let i = 0; i < tokens.length; i++) {
-            const type = tokens[i][0];
-            const lastTokenCommentless =
-                tokensCommentless[tokensCommentless.length - 1];
-            if (type === 'comment') {
-                continue;
-            } else if (type === 'space' && lastTokenCommentless &&
-                lastTokenCommentless[0] === 'space'
-           ) {
-                lastTokenCommentless[1] += tokens[i][1];
-            } else {
-                tokensCommentless.push(tokens[i]);
+        let withColon = false;
+        let brackets  = 0;
+        let value     = '';
+        for ( let i of tokens ) {
+            if ( withColon ) {
+                if ( i[0] !== 'comment' && i[0] !== '{' ) {
+                    value += i[1];
+                }
+            } else if ( i[0] === 'space' && i[1].indexOf('\n') !== -1 ) {
+                break;
+            } else if ( i[0] === '(' ) {
+                brackets += 1;
+            } else if ( i[0] === ')' ) {
+                brackets -= 1;
+            } else if ( brackets === 0 && i[0] === ':' ) {
+                withColon = true;
             }
         }
-        // removing the last `{`
-        tokensCommentless.pop();
 
-        if (tokensCommentless[1] && tokensCommentless[1][0] === ':') {
-            colonIndex = 1;
-        } else if (tokensCommentless[2] && tokensCommentless[2][0] === ':') {
-            colonIndex = 2;
-        }
-        if (colonIndex) {
-            isSpaceAfterColon = tokensCommentless[colonIndex + 1] &&
-                tokensCommentless[colonIndex + 1][0] === 'space';
-            value = isSpaceAfterColon ?
-                tokensCommentless[colonIndex + 2] &&
-                    tokensCommentless[colonIndex + 2][1] :
-                tokensCommentless[colonIndex + 1] &&
-                    tokensCommentless[colonIndex + 1][1];
-        }
+        if ( !withColon || value.trim() === '' || /^[a-zA-Z:]/.test(value) ) {
+            super.rule(tokens);
+        } else {
 
-        // If the conditions for compiling it as a nested prop (and not
-        // a selector as with `a :before`) are right
-        if (colonIndex &&
-            (value === null || isSpaceAfterColon ||
-            /[0-9.$]/.test(value[0]))
-       ) {
             tokens.pop();
-            // This code chunk is basically an almost exact copy of PostCSS'
-            // Parser.decl(), except `DeclarationNested` is used instead of
-            // `Declaration`, no ; is needed, and the very last part
-            let node = new DeclarationNested();
+            let node = new NestedDeclaration();
             this.init(node);
 
             let last = tokens[tokens.length - 1];
@@ -147,14 +121,7 @@ export default class ScssParser extends Parser {
                 this.checkMissedSemicolon(tokens);
             }
 
-            // Giving it a "nested" flag
-            node.raws.isNestedProp = true;
-            node.isNested = true;
-            // So that the following decls got inside this one
             this.current = node;
-        } else {
-            // Otherwise it's a usual ruleset
-            super.rule(tokens);
         }
     }
 
