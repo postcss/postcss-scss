@@ -1,3 +1,6 @@
+## 0.2.1
+* Fix nested prop parser for prefixed pseudo.
+
 ## 0.2
 * Add nested properties support (by dryoma).
 
