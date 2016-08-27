@@ -106,6 +106,12 @@ test('parses semicolon in rules', t => {
     t.deepEqual(root.first.first.first.prop, 'left');
 });
 
+test('parsers prefixed pseudo in rules', t => {
+    let root = parse('input:-moz-focusring { left: 1px }');
+    t.deepEqual(root.first.selector, 'input:-moz-focusring');
+    t.deepEqual(root.first.first.prop, 'left');
+});
+
 test('parses nested props as rule', t => {
     let root = parse('a { margin: { left: 10px; }}');
     t.deepEqual(root.first.first.selector, 'margin:');

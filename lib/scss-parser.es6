@@ -30,7 +30,7 @@ export default class ScssParser extends Parser {
             }
         }
 
-        if ( !withColon || value.trim() === '' || /^[a-zA-Z:]/.test(value) ) {
+        if ( !withColon || value.trim() === '' || /^[a-zA-Z-:]/.test(value) ) {
             super.rule(tokens);
         } else {
 
