@@ -1,6 +1,6 @@
 {
   "name": "postcss-scss",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "SCSS parser for PostCSS",
   "keywords": [
     "css",

@@ -1,3 +1,6 @@
+# 0.3
+* Use PostCSS 5.2.
+
 ## 0.2.1
 * Fix nested prop parser for prefixed pseudo.
 
