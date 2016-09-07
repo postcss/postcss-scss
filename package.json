@@ -14,13 +14,13 @@
   "license": "MIT",
   "repository": "postcss/postcss-scss",
   "dependencies": {
-    "postcss": "^5.1.2"
+    "postcss": "^5.2.0"
   },
   "devDependencies": {
     "babel-plugin-precompile-charcodes": "1.0.0",
     "babel-plugin-add-module-exports":   "0.2.1",
     "eslint-config-postcss":             "2.0.2",
-    "postcss-parser-tests":              "5.0.9",
+    "postcss-parser-tests":              "5.0.10",
     "babel-preset-es2015":               "6.14.0",
     "gulp-json-editor":                  "2.2.1",
     "gulp-sourcemaps":                   "1.6.0",

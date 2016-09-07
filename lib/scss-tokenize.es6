@@ -7,6 +7,8 @@ const SPACE             =  ' '.charCodeAt(0);
 const FEED              = '\f'.charCodeAt(0);
 const TAB               = '\t'.charCodeAt(0);
 const CR                = '\r'.charCodeAt(0);
+const OPEN_SQUARE       =  '['.charCodeAt(0);
+const CLOSE_SQUARE      =  ']'.charCodeAt(0);
 const OPEN_PARENTHESES  =  '('.charCodeAt(0);
 const CLOSE_PARENTHESES =  ')'.charCodeAt(0);
 const OPEN_CURLY        =  '{'.charCodeAt(0);
@@ -15,20 +17,29 @@ const SEMICOLON         =  ';'.charCodeAt(0);
 const ASTERICK          =  '*'.charCodeAt(0);
 const COLON             =  ':'.charCodeAt(0);
 const AT                =  '@'.charCodeAt(0);
+
+// SCSS PATCH {
 const COMMA             =  ','.charCodeAt(0);
 const HASH              =  '#'.charCodeAt(0);
+// } SCSS PATCH
 
-const RE_AT_END      = /[ \n\t\r\f\{\(\)'"\\;/#]/g;
-const RE_NEW_LINE    = /[\r\f\n]/g;
-const RE_WORD_END    = /[ \n\t\r\f\(\)\{\}:;@!'"\\#]|\/(?=\*)/g;
+const RE_AT_END      = /[ \n\t\r\f\{\(\)'"\\;/\[\]#]/g;
+const RE_WORD_END    = /[ \n\t\r\f\(\)\{\}:;@!'"\\\]\[#]|\/(?=\*)/g;
 const RE_BAD_BRACKET = /.[\\\/\("'\n]/;
 
-export default function scssTokenize(input) {
+const RE_NEW_LINE    = /[\r\f\n]/g; // SCSS PATCH
+
+// SCSS PATCH function name was changed
+export default function scssTokenize(input, options = { }) {
     let tokens = [];
     let css    = input.css.valueOf();
 
+    let ignore = options.ignoreErrors;
+
     let code, next, quote, lines, last, content, escape,
-        nextLine, nextOffset, escaped, escapePos, prev, n, brackets;
+        nextLine, nextOffset, escaped, escapePos, prev, n;
+
+    let brackets; // SCSS PATCH
 
     let length = css.length;
     let offset = -1;
@@ -72,6 +83,14 @@ export default function scssTokenize(input) {
             pos = next - 1;
             break;
 
+        case OPEN_SQUARE:
+            tokens.push(['[', '[', line, pos - offset]);
+            break;
+
+        case CLOSE_SQUARE:
+            tokens.push([']', ']', line, pos - offset]);
+            break;
+
         case OPEN_CURLY:
             tokens.push(['{', '{', line, pos - offset]);
             break;
@@ -79,6 +98,13 @@ export default function scssTokenize(input) {
         case CLOSE_CURLY:
             tokens.push(['}', '}', line, pos - offset]);
             break;
+
+        // SCSS PATCH {
+        case COMMA:
+            tokens.push(['word', ',', line, pos - offset,
+                                      line, pos - offset + 1]);
+            break;
+        // } SCSS PATCH
 
         case COLON:
             tokens.push([':', ':', line, pos - offset]);
@@ -88,18 +114,13 @@ export default function scssTokenize(input) {
             tokens.push([';', ';', line, pos - offset]);
             break;
 
-        case COMMA:
-            tokens.push(['word', ',', line, pos - offset,
-                                      line, pos - offset + 1]);
-            break;
-
         case OPEN_PARENTHESES:
             prev = tokens.length ? tokens[tokens.length - 1][1] : '';
             n    = css.charCodeAt(pos + 1);
             if ( prev === 'url' && n !== SINGLE_QUOTE && n !== DOUBLE_QUOTE &&
                                    n !== SPACE && n !== NEWLINE && n !== TAB &&
                                    n !== FEED && n !== CR ) {
-
+                // SCSS PATCH {
                 brackets = 1;
                 escaped  = false;
                 next     = pos + 1;
@@ -115,6 +136,7 @@ export default function scssTokenize(input) {
                     }
                     next += 1;
                 }
+                // } SCSS PATCH
 
                 tokens.push(['brackets', css.slice(pos, next + 1),
                     line, pos  - offset,
@@ -150,7 +172,14 @@ export default function scssTokenize(input) {
             do {
                 escaped = false;
                 next    = css.indexOf(quote, next + 1);
-                if ( next === -1 ) unclosed('quote');
+                if ( next === -1 ) {
+                    if ( ignore ) {
+                        next = pos + 1;
+                        break;
+                    } else {
+                        unclosed('quote');
+                    }
+                }
                 escapePos = next;
                 while ( css.charCodeAt(escapePos - 1) === BACKSLASH ) {
                     escapePos -= 1;
@@ -219,6 +248,7 @@ export default function scssTokenize(input) {
             break;
 
         default:
+            // SCSS PATCH {
             n = css.charCodeAt(pos + 1);
 
             if ( code === HASH && n === OPEN_CURLY ) {
@@ -260,8 +290,16 @@ export default function scssTokenize(input) {
                 pos    = next;
 
             } else if ( code === SLASH && n === ASTERICK ) {
+            // } SCSS PATCH
+
                 next = css.indexOf('*/', pos + 2) + 1;
-                if ( next === 0 ) unclosed('comment');
+                if ( next === 0 ) {
+                    if ( ignore ) {
+                        next = css.length;
+                    } else {
+                        unclosed('comment');
+                    }
+                }
 
                 content = css.slice(pos, next + 1);
                 lines   = content.split('\n');
@@ -284,6 +322,7 @@ export default function scssTokenize(input) {
                 line   = nextLine;
                 pos    = next;
 
+            // SCSS PATCH {
             } else if ( code === SLASH && n === SLASH ) {
                 RE_NEW_LINE.lastIndex = pos + 1;
                 RE_NEW_LINE.test(css);
@@ -302,6 +341,7 @@ export default function scssTokenize(input) {
                 ]);
 
                 pos = next;
+            // } SCSS PATCH
 
             } else {
                 RE_WORD_END.lastIndex = pos + 1;
