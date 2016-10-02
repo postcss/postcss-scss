@@ -1,4 +1,7 @@
-# 0.3
+## 0.3.1
+* Fix parsing selector with interpolation in pseudo-class.
+
+## 0.3
 * Use PostCSS 5.2.
 
 ## 0.2.1
