@@ -147,3 +147,8 @@ test('parses nested props with important', t => {
     t.deepEqual(root.first.first.value, '0');
     t.deepEqual(root.first.first.important, true);
 });
+
+test('parses nested props with important', t => {
+    let root = parse('&:#{$var} {}');
+    t.deepEqual(root.first.selector, '&:#{$var}');
+});
