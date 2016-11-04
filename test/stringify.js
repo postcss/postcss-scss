@@ -26,6 +26,15 @@ test('stringifies inline comment', t => {
     t.deepEqual(result, '// comment\na {}');
 });
 
+test('stringifies inline comment with comments inside', t => {
+    let root   = parse('// a/*b*/c\na {}');
+    let result = '';
+    stringify(root, i => {
+        result += i;
+    });
+    t.deepEqual(result, '// a/*b*/c\na {}');
+});
+
 test('stringifies inline comment in the end of file', t => {
     let root   = parse('// comment');
     let result = '';

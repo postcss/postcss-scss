@@ -34,7 +34,8 @@ test('parses inline comments', t => {
         before: '\n',
         left:   ' ',
         right:  ' ',
-        inline: true
+        inline: true,
+        text:   'a'
     });
     t.deepEqual(root.last.text, 'b');
 });
@@ -151,4 +152,9 @@ test('parses nested props with important', t => {
 test('parses nested props with important', t => {
     let root = parse('&:#{$var} {}');
     t.deepEqual(root.first.selector, '&:#{$var}');
+});
+
+test('parses nested props with important', t => {
+    let root = parse('a {\n//a/*b*/c\n}');
+    t.deepEqual(root.toString(), 'a {\n/*a*//*b*//*c*/\n}');
 });

@@ -7,7 +7,8 @@ export default class ScssStringifier extends Stringifier {
         let right = this.raw(node, 'right', 'commentRight');
 
         if ( node.raws.inline ) {
-            this.builder('//' + left + node.text + right, node);
+            let text = node.raws.text || node.text;
+            this.builder('//' + left + text + right, node);
         } else {
             this.builder('/*' + left + node.text + right + '*/', node);
         }

@@ -133,15 +133,17 @@ export default class ScssParser extends Parser {
             node.source.end  = { line: token[4], column: token[5] };
 
             let text = token[1].slice(2);
-            if (/^\s*$/.test(text)) {
+            if ( /^\s*$/.test(text) ) {
                 node.text       = '';
                 node.raws.left  = text;
                 node.raws.right = '';
             } else {
                 let match = text.match(/^(\s*)([^]*[^\s])(\s*)$/);
-                node.text       = match[2];
+                let fixed = match[2].replace(/(\*\/|\/\*)/g, '*//*');
+                node.text       = fixed;
                 node.raws.left  = match[1];
                 node.raws.right = match[3];
+                node.raws.text  = match[2];
             }
         } else {
             super.comment(token);
