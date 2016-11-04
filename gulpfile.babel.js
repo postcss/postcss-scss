@@ -44,7 +44,7 @@ gulp.task('lint', () => {
         return false;
     }
     let eslint = require('gulp-eslint');
-    return gulp.src(['*.js', 'lib/*.es6', 'test/*.es6'])
+    return gulp.src(['*.js', 'lib/*.es6', 'test/*.js'])
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());
