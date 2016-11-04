@@ -44,7 +44,7 @@ test('stringifies rule with usual props', t => {
     t.deepEqual(result, 'a { color: red; text-align: justify ; }');
 });
 
-test('Stringify: nested props', t => {
+test('stringifies nested props', t => {
     let root   = parse('a { \n margin : 0!important { left: 10px; }}');
     let result = '';
     stringify(root, i => {
@@ -53,7 +53,7 @@ test('Stringify: nested props', t => {
     t.deepEqual(result, 'a { \n margin : 0!important { left: 10px; }}');
 });
 
-test('Stringify: nested props with more newlines', t => {
+test('stringifies nested props with more newlines', t => {
     let root = parse('a { \n margin : 0 !important \n { \n left: 10px; } \n}');
     let result = '';
     stringify(root, i => {
