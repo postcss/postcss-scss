@@ -101,8 +101,12 @@ export default function scssTokenize(input, options = { }) {
 
         // SCSS PATCH {
         case COMMA:
-            tokens.push(['word', ',', line, pos - offset,
-                                      line, pos - offset + 1]);
+            tokens.push([
+                'word',
+                ',',
+                line, pos - offset,
+                line, pos - offset + 1
+            ]);
             break;
         // } SCSS PATCH
 
