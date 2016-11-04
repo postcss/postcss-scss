@@ -1,3 +1,6 @@
+## 0.4
+* Add mixed comments support (`// width: 5% /* width: 6% */`)
+
 ## 0.3.1
 * Fix parsing selector with interpolation in pseudo-class.
 
