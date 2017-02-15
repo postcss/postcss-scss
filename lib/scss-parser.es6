@@ -77,7 +77,7 @@ export default class ScssParser extends Parser {
                 node.raws.before += node.prop[0];
                 node.prop = node.prop.slice(1);
             }
-            node.raws.between += this.spacesFromStart(tokens);
+            node.raws.between += this.spacesAndCommentsFromStart(tokens);
             this.precheckMissedSemicolon(tokens);
 
             for (let i = tokens.length - 1; i > 0; i--) {
