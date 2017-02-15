@@ -1,3 +1,6 @@
+## 0.4.1
+* Fix compatibility with PostCSS 5.2.13.
+
 ## 0.4
 * Add mixed comments support (`// width: 5% /* width: 6% */`)
 
