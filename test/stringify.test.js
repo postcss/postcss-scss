@@ -1,73 +1,72 @@
-import stringify from '../lib/scss-stringify';
-import parse     from '../lib/scss-parse';
+const cases = require('postcss-parser-tests');
 
-import cases from 'postcss-parser-tests';
-import test  from 'ava';
+const stringify = require('../lib/scss-stringify');
+const parse     = require('../lib/scss-parse');
 
 cases.each( (name, css) => {
     if ( name === 'bom.css' ) return;
 
-    test('stringifies ' + name, t => {
+    it('stringifies ' + name, () => {
         let root   = parse(css);
         let result = '';
         stringify(root, i => {
             result += i;
         });
-        t.deepEqual(result, css);
+        expect(result).toEqual(css);
     });
 });
 
-test('stringifies inline comment', t => {
+it('stringifies inline comment', () => {
     let root   = parse('// comment\na {}');
     let result = '';
     stringify(root, i => {
         result += i;
     });
-    t.deepEqual(result, '// comment\na {}');
+    expect(result).toEqual('// comment\na {}');
 });
 
-test('stringifies inline comment with comments inside', t => {
+it('stringifies inline comment with comments inside', () => {
     let root   = parse('// a/*b*/c\na {}');
     let result = '';
     stringify(root, i => {
         result += i;
     });
-    t.deepEqual(result, '// a/*b*/c\na {}');
+    expect(result).toEqual('// a/*b*/c\na {}');
 });
 
-test('stringifies inline comment in the end of file', t => {
+it('stringifies inline comment in the end of file', () => {
     let root   = parse('// comment');
     let result = '';
     stringify(root, i => {
         result += i;
     });
-    t.deepEqual(result, '// comment');
+    expect(result).toEqual('// comment');
 });
 
-test('stringifies rule with usual props', t => {
+it('stringifies rule with usual props', () => {
     let root   = parse('a { color: red; text-align: justify ; }');
     let result = '';
     stringify(root, i => {
         result += i;
     });
-    t.deepEqual(result, 'a { color: red; text-align: justify ; }');
+    expect(result).toEqual('a { color: red; text-align: justify ; }');
 });
 
-test('stringifies nested props', t => {
+it('stringifies nested props', () => {
     let root   = parse('a { \n margin : 0!important { left: 10px; }}');
     let result = '';
     stringify(root, i => {
         result += i;
     });
-    t.deepEqual(result, 'a { \n margin : 0!important { left: 10px; }}');
+    expect(result).toEqual('a { \n margin : 0!important { left: 10px; }}');
 });
 
-test('stringifies nested props with more newlines', t => {
+it('stringifies nested props with more newlines', () => {
     let root = parse('a { \n margin : 0 !important \n { \n left: 10px; } \n}');
     let result = '';
     stringify(root, i => {
         result += i;
     });
-    t.deepEqual(result,
+    expect(result).toEqual(
         'a { \n margin : 0 !important \n { \n left: 10px; } \n}');
 });

@@ -17,7 +17,6 @@
     "postcss": "^5.2.13"
   },
   "devDependencies": {
-    "ava": "^0.18.1",
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
     "babel-plugin-add-module-exports": "0.2.1",
@@ -27,12 +26,13 @@
     "eslint": "^3.15.0",
     "eslint-config-postcss": "2.0.2",
     "gulp": "3.9.1",
-    "gulp-ava": "^0.16.0",
     "gulp-babel": "6.1.2",
     "gulp-changed": "1.3.2",
     "gulp-eslint": "3.0.1",
+    "gulp-jest": "^1.0.0",
     "gulp-json-editor": "2.2.1",
     "gulp-sourcemaps": "^2.4.1",
+    "jest": "^19.0.2",
     "lint-staged": "^3.3.0",
     "postcss-parser-tests": "^5.0.11",
     "pre-commit": "^1.2.2",
@@ -53,16 +53,19 @@
         }
       ],
       "complexity": "off"
+    },
+    "env": {
+      "jest": true
     }
   },
   "babel": {
     "presets": [
-        [
-          "es2015",
-          {
-            "loose": true
-          }
-        ]
+      [
+        "es2015",
+        {
+          "loose": true
+        }
+      ]
     ],
     "plugins": [
       "add-module-exports",

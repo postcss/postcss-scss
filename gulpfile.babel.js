@@ -50,8 +50,8 @@ gulp.task('lint', () => {
 // Test
 
 gulp.task('test', ['compile'], () => {
-    let ava = require('gulp-ava');
-    return gulp.src('test/*.es6', { read: false }).pipe(ava());
+    let jest = require('gulp-jest').default;
+    return gulp.src('test/').pipe(jest());
 });
 
 gulp.task('integration', ['compile'], done => {
