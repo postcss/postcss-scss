@@ -1,3 +1,7 @@
+## 1.0
+* Use PostCSS 6.0.
+* Use `babel-preset-env`.
+
 ## 0.4.1
 * Fix compatibility with PostCSS 5.2.13.
 
