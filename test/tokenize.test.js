@@ -1,19 +1,28 @@
 const Input = require('postcss/lib/input');
 
-const tokenize = require('../lib/scss-tokenize');
+const tokenizer = require('../lib/scss-tokenize');
+
+function tokenize(css) {
+    let processor = tokenizer(new Input(css));
+    let tokens = [];
+    while (!processor.endOfFile()) {
+        tokens.push(processor.nextToken());
+    }
+    return tokens;
+}
 
 function run(css, tokens) {
-    expect(tokenize(new Input(css))).toEqual(tokens);
+    expect(tokenize(css)).toEqual(tokens);
 }
 
 it('tokenizes inline comments', () => {
     run('// a\n', [ ['comment', '// a', 1, 1, 1, 4, 'inline'],
-                       ['space', '\n'] ]);
+                    ['space', '\n'] ]);
 });
 
 it('tokenizes inline comments with any new line', () => {
     run('// a\r\n', [ ['comment', '// a', 1, 1, 1, 4, 'inline'],
-                         ['space', '\r\n'] ]);
+                      ['space', '\r\n'] ]);
 });
 
 it('tokenizes inline comments in end of file', () => {

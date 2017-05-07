@@ -6,8 +6,8 @@ import scssTokenizer     from './scss-tokenize';
 
 export default class ScssParser extends Parser {
 
-    tokenize() {
-        this.tokens = scssTokenizer(this.input);
+    createTokenizer() {
+        this.tokenizer = scssTokenizer(this.input);
     }
 
     rule(tokens) {
