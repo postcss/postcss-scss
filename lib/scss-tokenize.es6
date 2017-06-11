@@ -147,14 +147,28 @@ export default function scssTokenize(input, options = {}) {
                     }
                     next += 1;
                 }
-                // } SCSS PATCH
 
-                currentToken = ['brackets', css.slice(pos, next + 1),
-                    line, pos  - offset,
-                    line, next - offset
+                content = css.slice(pos, next + 1);
+                lines   = content.split('\n');
+                last    = lines.length - 1;
+
+                if ( last > 0 ) {
+                    nextLine   = line + last;
+                    nextOffset = next - lines[last].length;
+                } else {
+                    nextLine   = line;
+                    nextOffset = offset;
+                }
+
+                currentToken = ['brackets', content,
+                    line,     pos  - offset,
+                    nextLine, next - nextOffset
                 ];
 
-                pos = next;
+                offset = nextOffset;
+                line   = nextLine;
+                pos    = next;
+                // } SCSS PATCH
 
             } else {
                 next    = css.indexOf(')', pos + 1);

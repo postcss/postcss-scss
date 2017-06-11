@@ -36,3 +36,8 @@ it('tokenizes interpolation', () => {
 it('tokenizes recursively interpolations', () => {
     run('#{#{#{}}}', [ ['word', '#{#{#{}}}', 1, 1, 1, 9] ]);
 });
+
+it('tokenizes multiline url()', () => {
+    run('url(a\nb)', [ ['word', 'url', 1, 1, 1, 3],
+                       ['brackets', '(a\nb)', 1, 4, 2, 2] ]);
+});
