@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": "postcss/postcss-scss",
   "dependencies": {
-    "postcss": "^6.0.1"
+    "postcss": "^6.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
@@ -23,18 +23,18 @@
     "babel-plugin-precompile-charcodes": "1.0.0",
     "babel-preset-env": "^1.5.2",
     "del": "^3.0.0",
-    "eslint": "^3.19.0",
+    "eslint": "^4.0.0",
     "eslint-config-postcss": "2.0.2",
     "gulp": "3.9.1",
     "gulp-babel": "6.1.2",
     "gulp-changed": "^3.1.0",
-    "gulp-eslint": "3.0.1",
+    "gulp-eslint": "^4.0.0",
     "gulp-jest": "^2.0.0",
     "gulp-json-editor": "2.2.1",
     "gulp-sourcemaps": "^2.6.0",
     "jest": "^20.0.4",
-    "lint-staged": "^3.6.1",
-    "postcss-parser-tests": "^6.0.0",
+    "lint-staged": "^4.0.0",
+    "postcss-parser-tests": "^6.0.1",
     "pre-commit": "^1.2.2",
     "run-sequence": "1.2.2"
   },
