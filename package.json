@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": "postcss/postcss-scss",
   "dependencies": {
-    "postcss": "^6.0.2"
+    "postcss": "^6.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
