@@ -26,6 +26,7 @@ const HASH              =  '#'.charCodeAt(0);
 const RE_AT_END      = /[ \n\t\r\f\{\(\)'"\\;/\[\]#]/g;
 const RE_WORD_END    = /[ \n\t\r\f\(\)\{\}:;@!'"\\\]\[#]|\/(?=\*)/g;
 const RE_BAD_BRACKET = /.[\\\/\("'\n]/;
+const RE_HEX_ESCAPE  = /[a-f0-9]/i;
 
 const RE_NEW_LINE    = /[\r\f\n]/g; // SCSS PATCH
 
@@ -267,6 +268,14 @@ export default function scssTokenize(input, options = {}) {
                             code !== CR      &&
                             code !== FEED ) ) {
                 next += 1;
+                if ( RE_HEX_ESCAPE.test(css.charAt(next)) ) {
+                    while ( RE_HEX_ESCAPE.test(css.charAt(next + 1)) ) {
+                        next += 1;
+                    }
+                    if ( css.charCodeAt(next + 1) === SPACE ) {
+                        next += 1;
+                    }
+                }
             }
 
             currentToken = ['word', css.slice(pos, next + 1),
