@@ -63,3 +63,14 @@ If you want Sass behaviour with removing inline comments, you can use
 [postcss-strip-inline-comments] plugin.
 
 [postcss-strip-inline-comments]: https://github.com/mummybot/postcss-strip-inline-comments
+
+
+## Installation
+
+### Npm
+
+``` npm --save-dev install postcss-scss ```
+
+### Yarn
+
+``` yarn add --dev postcss-scss ```
