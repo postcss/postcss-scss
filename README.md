@@ -19,6 +19,20 @@ SCSS source code alongside CSS.
 <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg" alt="Sponsored by Evil Martians" width="236" height="54">
 </a>
 
+
+## Install
+
+```sh
+npm --save install postcss-scss
+```
+
+or (if you use [Yarn](https://yarnpkg.com/))
+
+```sh
+yarn install --dev postcss-scss
+```
+
+
 ## Usage
 
 ### SCSS Transformations
@@ -63,14 +77,3 @@ If you want Sass behaviour with removing inline comments, you can use
 [postcss-strip-inline-comments] plugin.
 
 [postcss-strip-inline-comments]: https://github.com/mummybot/postcss-strip-inline-comments
-
-
-## Installation
-
-### Npm
-
-``` npm --save-dev install postcss-scss ```
-
-### Yarn
-
-``` yarn add --dev postcss-scss ```
