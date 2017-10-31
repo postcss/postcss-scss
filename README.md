@@ -35,6 +35,17 @@ yarn install --dev postcss-scss
 
 ## Usage
 
+### Simple parsing example
+
+We parse SCSS files the same way as we do vanilla CSS, except we provide
+postcss-scss as the syntax object.
+
+```js
+var syntax = require('postcss-scss');
+
+var root = postcss.parse(rawSCSS, { syntax: syntax });
+```
+
 ### SCSS Transformations
 
 The main use case of this plugin is to apply PostCSS transformations directly
