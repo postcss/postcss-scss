@@ -29,7 +29,7 @@ npm --save install postcss-scss
 or (if you use [Yarn](https://yarnpkg.com/))
 
 ```sh
-yarn install --dev postcss-scss
+yarn add --dev postcss-scss
 ```
 
 
