@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.3
+* Remove development sections from published `package.json`.
+
 ## 1.0.2
 * Fix escape sequences parsing (by Oleh Kuchuk).
 
