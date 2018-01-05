@@ -68,10 +68,13 @@ Note that you don’t need a special stringifier to handle the output; the defau
 one will automatically convert single line comments into block comments.
 
 ```js
-var syntax = require('postcss-scss');
-postcss(plugins).process(scss, { parser: syntax }).then(function (result) {
-    result.css // CSS with normal comments
-});
+// postcss.config.js
+module.exports = {
+  parser: 'postcss-scss',
+  plugins: {
+    …
+  }
+}
 ```
 
 If you want Sass behaviour with removing inline comments, you can use
