@@ -2208,7 +2208,7 @@ gulp-jest@^3.0.1:
     gulp-util "^3.0.0"
     through2 "^2.0.1"
 
-gulp-json-editor@2.2.1:
+gulp-json-editor@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/gulp-json-editor/-/gulp-json-editor-2.2.1.tgz#7c4dd7477e8d06dc5dc49c0b81e745cdb04f97bb"
   dependencies:

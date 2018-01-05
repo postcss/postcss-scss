@@ -30,7 +30,7 @@
     "gulp-changed": "^3.2.0",
     "gulp-eslint": "^4.0.0",
     "gulp-jest": "^3.0.1",
-    "gulp-json-editor": "2.2.1",
+    "gulp-json-editor": "^2.2.1",
     "gulp-sourcemaps": "^2.6.3",
     "jest": "^22.0.4",
     "jest-cli": "^22.0.4",

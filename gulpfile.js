@@ -25,10 +25,26 @@ gulp.task('build:lib', ['compile'], () => {
     return gulp.src('lib/*.js').pipe(gulp.dest('build/lib'));
 });
 
+gulp.task('build:package', () => {
+    const editor = require('gulp-json-editor');
+    return gulp.src('./package.json')
+        .pipe(editor((json) => {
+            delete json.babel;
+            delete json.scripts;
+            delete json.jest;
+            delete json.eslintConfig;
+            delete json['pre-commit'];
+            delete json['lint-staged'];
+            delete json.devDependencies;
+            return json;
+        }))
+        .pipe(gulp.dest('build'));
+});
+
 gulp.task('build:docs', () => {
     let ignore = require('fs').readFileSync('.npmignore').toString()
         .trim().split(/\n+/)
-        .concat(['.npmignore'])
+        .concat(['.npmignore', 'package.json'])
         .map( i => '!' + i );
     return gulp.src(['*'].concat(ignore))
         .pipe(gulp.dest('build'));
@@ -36,7 +52,7 @@ gulp.task('build:docs', () => {
 
 gulp.task('build', (done) => {
     let runSequence = require('run-sequence');
-    runSequence('clean', ['build:lib', 'build:docs'], done);
+    runSequence('clean', ['build:lib', 'build:docs', 'build:package'], done);
 });
 
 // Lint
