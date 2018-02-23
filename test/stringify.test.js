@@ -34,6 +34,15 @@ it('stringifies inline comment with comments inside', () => {
     expect(result).toEqual('// a/*b*/c\na {}');
 });
 
+it('stringifies inline comment inside selectors', () => {
+    let root   = parse('a\n// comment\nb {}');
+    let result = '';
+    stringify(root, i => {
+        result += i;
+    });
+    expect(result).toEqual('a\n// comment\nb {}');
+});
+
 it('stringifies inline comment in the end of file', () => {
     let root   = parse('// comment');
     let result = '';

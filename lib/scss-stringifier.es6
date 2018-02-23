@@ -39,4 +39,14 @@ export default class ScssStringifier extends Stringifier {
         }
     }
 
+    rawValue(node, prop) {
+        let value = node[prop];
+        let raw   = node.raws[prop];
+        if ( raw && raw.value === value ) {
+            return raw.scss ? raw.scss : raw.raw;
+        } else {
+            return value;
+        }
+    }
+
 }

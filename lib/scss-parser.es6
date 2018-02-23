@@ -150,4 +150,22 @@ export default class ScssParser extends Parser {
         }
     }
 
+    raw(node, prop, tokens) {
+        super.raw(node, prop, tokens);
+        if ( node.raws[prop] ) {
+            let scss = node.raws[prop].raw;
+            node.raws[prop].raw = tokens.reduce( (all, i) => {
+                if ( i[0] === 'comment' && i[6] === 'inline' ) {
+                    let text = i[1].slice(2).replace(/(\*\/|\/\*)/g, '*//*');
+                    return all + '/*' + text + '*/';
+                } else {
+                    return all + i[1];
+                }
+            }, '');
+            if ( scss !== node.raws[prop].raw ) {
+                node.raws[prop].scss = scss;
+            }
+        }
+    }
+
 }

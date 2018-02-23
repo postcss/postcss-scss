@@ -57,6 +57,12 @@ it('parses empty inline comments', () => {
     });
 });
 
+it('parses inline comments inside selector', () => {
+    let root = parse('a\n// c/**/\nb { }');
+    expect(root.first.raws.selector.scss).toEqual('a\n// c/**/\nb');
+    expect(root.first.raws.selector.raw).toEqual('a\n/* c*//**//**/\nb');
+});
+
 it('does not parse comments inside brakets', () => {
     let root = parse('a { cursor: url(http://ya.ru) }');
     expect(root.first.first.value).toEqual('url(http://ya.ru)');
