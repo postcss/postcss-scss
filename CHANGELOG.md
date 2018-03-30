@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.5
+* Fix parsing `url( http://example.com )` with spaces inside.
+
 ## 1.0.4
 * Fix parsing inline cpmments inside selectors.
 
