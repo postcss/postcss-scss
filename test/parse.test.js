@@ -63,9 +63,14 @@ it('parses inline comments inside selector', () => {
     expect(root.first.raws.selector.raw).toEqual('a\n/* c*//**//**/\nb');
 });
 
-it('does not parse comments inside brakets', () => {
+it('does not parse comments inside brackets', () => {
     let root = parse('a { cursor: url(http://ya.ru) }');
     expect(root.first.first.value).toEqual('url(http://ya.ru)');
+});
+
+it('does not parse comments inside brackets and spaces', () => {
+    let root = parse('a { cursor: url( http://ya.ru ) }');
+    expect(root.first.first.value).toEqual('url( http://ya.ru )');
 });
 
 it('parses interpolation', () => {

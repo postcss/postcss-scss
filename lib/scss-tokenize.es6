@@ -128,11 +128,9 @@ export default function scssTokenize(input, options = {}) {
         case OPEN_PARENTHESES:
             prev = buffer.length ? buffer.pop()[1] : '';
             n    = css.charCodeAt(pos + 1);
-            if ( prev === 'url' &&
-                 n !== SINGLE_QUOTE && n !== DOUBLE_QUOTE &&
-                 n !== SPACE && n !== NEWLINE && n !== TAB &&
-                 n !== FEED && n !== CR ) {
-                // SCSS PATCH {
+
+            // SCSS PATCH {
+            if ( prev === 'url' && n !== SINGLE_QUOTE && n !== DOUBLE_QUOTE ) {
                 brackets = 1;
                 escaped  = false;
                 next     = pos + 1;
@@ -169,7 +167,7 @@ export default function scssTokenize(input, options = {}) {
                 offset = nextOffset;
                 line   = nextLine;
                 pos    = next;
-                // } SCSS PATCH
+            // } SCSS PATCH
 
             } else {
                 next    = css.indexOf(')', pos + 1);
