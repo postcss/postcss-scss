@@ -35,27 +35,33 @@ yarn add --dev postcss-scss
 
 ## Usage
 
-### SCSS Transformations
+There is a 2 wyas to use this parser:
+
+### 1. SCSS Transformations
 
 The main use case of this plugin is to apply PostCSS transformations directly
-to SCSS source code. For example, if you ship a theme written in SCSS and need
-[Autoprefixer] to add the appropriate vendor prefixes to it; or you need to
-lint SCSS with a plugin such as [Stylelint].
+to SCSS source code.
+
+For example, you can lint SCSS source with [Stylelint]
+and linter will automatically fix issues in the source.
 
 ```js
-var syntax = require('postcss-scss');
-postcss(plugins).process(scss, { syntax: syntax }).then(function (result) {
-    result.content // SCSS with transformations
-});
+// postcss.config.js
+module.exports = {
+  syntax: 'postcss-scss',
+  plugins: {
+    …
+  }
+}
 ```
 
-[Autoprefixer]: https://github.com/postcss/autoprefixer
 [Stylelint]:    http://stylelint.io/
 
 
-### Inline Comments for PostCSS
+### 2. Inline Comments for PostCSS
 
-This module also enables parsing of single-line comments in CSS source code.
+ALso you can use this parser just to add `//` single-line comment
+to your PostCSS project (without any Sass):
 
 ```scss
 :root {
@@ -81,15 +87,3 @@ If you want Sass behaviour with removing inline comments, you can use
 [postcss-strip-inline-comments] plugin.
 
 [postcss-strip-inline-comments]: https://github.com/mummybot/postcss-strip-inline-comments
-
-
-### Parsing
-
-We parse SCSS files the same way as we do vanilla CSS, except we provide
-`postcss-scss` as the parser option.
-
-```js
-var syntax = require('postcss-scss');
-
-var root = postcss.parse(scss, { parser: syntax });
-```
