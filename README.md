@@ -58,9 +58,9 @@ postcss(plugins).process(scss, { syntax: syntax }).then(function (result) {
 This module also enables parsing of single-line comments in CSS source code.
 
 ```scss
-:root {
+.block {
     // Main theme color
-    --color: red;
+    color: green;
 }
 ```
 
