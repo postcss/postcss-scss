@@ -35,7 +35,7 @@ yarn add --dev postcss-scss
 
 ## Usage
 
-There is a 2 wyas to use this parser:
+There is a 2 ways to use this parser:
 
 ### 1. SCSS Transformations
 
