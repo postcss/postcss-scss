@@ -35,7 +35,7 @@ yarn add --dev postcss-scss
 
 ## Usage
 
-There is a 2 ways to use this parser:
+There are two ways to use this parser:
 
 ### 1. SCSS Transformations
 
@@ -60,7 +60,7 @@ module.exports = {
 
 ### 2. Inline Comments for PostCSS
 
-ALso you can use this parser just to add `//` single-line comment
+Also you can use this parser just to add `//` single-line comment
 to your PostCSS project (without any Sass):
 
 ```scss
