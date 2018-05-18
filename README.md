@@ -64,9 +64,9 @@ Also you can use this parser just to add `//` single-line comment
 to your PostCSS project (without any Sass):
 
 ```scss
-:root {
+.block {
     // Main theme color
-    --color: red;
+    color: green;
 }
 ```
 
