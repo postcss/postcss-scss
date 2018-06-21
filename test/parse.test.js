@@ -168,3 +168,13 @@ it('parses nested props with important', () => {
     let root = parse('a {\n//a/*b*/c\n}');
     expect(root.toString()).toEqual('a {\n/*a*//*b*//*c*/\n}');
 });
+
+it('parses complex interpolation', () => {
+    let root = parse('content: #{fn("\\"}")};');
+    expect(root.first.value).toEqual('#{fn("\\"}")}');
+});
+
+it('parses interpolation inside string', () => {
+    let root = parse('content: "#{fn("\\"}")}";');
+    expect(root.first.value).toEqual('"#{fn("\\"}")}"');
+});

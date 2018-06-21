@@ -36,7 +36,7 @@ export default function scssTokenize(input, options = {}) {
     let ignore = options.ignoreErrors;
 
     let code, next, quote, lines, last, content, escape,
-        nextLine, nextOffset, escaped, escapePos, prev, n, currentToken;
+        nextLine, nextOffset, escaped, prev, n, currentToken;
 
     let brackets; // SCSS PATCH
 
@@ -54,6 +54,40 @@ export default function scssTokenize(input, options = {}) {
     function endOfFile() {
         return returned.length === 0 && pos >= length;
     }
+
+    // SCSS PATCH {
+    function interpolation() {
+        let deep = 1;
+        let stringQuote = false;
+        let stringEscaped = false;
+        while ( deep > 0 ) {
+            next += 1;
+            if ( css.length <= next ) unclosed('interpolation');
+
+            code = css.charCodeAt(next);
+            n    = css.charCodeAt(next + 1);
+
+            if ( stringQuote ) {
+                if ( !stringEscaped && code === stringQuote ) {
+                    stringQuote = false;
+                    stringEscaped = false;
+                } else if ( code === BACKSLASH ) {
+                    stringEscaped = !escaped;
+                } else if ( stringEscaped ) {
+                    stringEscaped = false;
+                }
+            } else if (
+                code === SINGLE_QUOTE || code === DOUBLE_QUOTE
+            ) {
+                stringQuote = code;
+            } else if ( code === CLOSE_CURLY ) {
+                deep -= 1;
+            } else if ( code === HASH && n === OPEN_CURLY ) {
+                deep += 1;
+            }
+        }
+    }
+    // } SCSS PATCH
 
     function nextToken() {
         if ( returned.length ) return returned.pop();
@@ -192,25 +226,29 @@ export default function scssTokenize(input, options = {}) {
 
         case SINGLE_QUOTE:
         case DOUBLE_QUOTE:
-            quote = code === SINGLE_QUOTE ? '\'' : '"';
+            // SCSS PATCH {
+            quote = code;
             next  = pos;
-            do {
-                escaped = false;
-                next    = css.indexOf(quote, next + 1);
-                if ( next === -1 ) {
-                    if ( ignore ) {
-                        next = pos + 1;
-                        break;
-                    } else {
-                        unclosed('string');
-                    }
-                }
-                escapePos = next;
-                while ( css.charCodeAt(escapePos - 1) === BACKSLASH ) {
-                    escapePos -= 1;
+
+            escaped = false;
+            while ( next < length ) {
+                next++;
+                if ( next === length ) unclosed('string');
+
+                code = css.charCodeAt(next);
+                n = css.charCodeAt(next + 1);
+
+                if ( !escaped && code === quote ) {
+                    break;
+                } else if ( code === BACKSLASH ) {
                     escaped = !escaped;
+                } else if ( escaped ) {
+                    escaped = false;
+                } else if ( code === HASH && n === OPEN_CURLY ) {
+                    interpolation();
                 }
-            } while ( escaped );
+            }
+            // } SCSS PATCH
 
             content = css.slice(pos, next + 1);
             lines   = content.split('\n');
@@ -289,21 +327,8 @@ export default function scssTokenize(input, options = {}) {
             n = css.charCodeAt(pos + 1);
 
             if ( code === HASH && n === OPEN_CURLY ) {
-                let deep = 1;
                 next = pos;
-                while ( deep > 0 ) {
-                    next += 1;
-                    if ( css.length <= next ) unclosed('interpolation');
-
-                    code  = css.charCodeAt(next);
-                    n     = css.charCodeAt(next + 1);
-
-                    if ( code === CLOSE_CURLY ) {
-                        deep -= 1;
-                    } else if ( code === HASH && n === OPEN_CURLY ) {
-                        deep += 1;
-                    }
-                }
+                interpolation();
 
                 content = css.slice(pos, next + 1);
                 lines   = content.split('\n');
