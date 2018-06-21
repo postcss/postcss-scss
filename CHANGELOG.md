@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.6
+* Fix parsing nested at-rules without semicolon, params, and spaces.
+* Fix parsing string in interpolation in string.
+
 ## 1.0.5
 * Fix parsing `url( http://example.com )` with spaces inside.
 
