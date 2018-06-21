@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": "postcss/postcss-scss",
   "dependencies": {
-    "postcss": "^6.0.22"
+    "postcss": "^6.0.23"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -35,7 +35,7 @@
     "jest": "^22.4.3",
     "jest-cli": "^22.4.3",
     "lint-staged": "^7.1.0",
-    "postcss-parser-tests": "^6.2.1",
+    "postcss-parser-tests": "^6.3.0",
     "pre-commit": "^1.2.2",
     "run-sequence": "2.2.1"
   },
