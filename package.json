@@ -13,28 +13,39 @@
   "author": "Andrey Sitnik <andrey@sitnik.ru>",
   "license": "MIT",
   "repository": "postcss/postcss-scss",
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "dependencies": {
-    "postcss": "^6.0.23"
+    "postcss": "^7.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.3",
+    "babel-eslint": "^8.2.6",
     "babel-plugin-add-module-exports": "0.2.1",
     "babel-plugin-precompile-charcodes": "1.1.0",
     "babel-preset-env": "^1.7.0",
     "del": "^3.0.0",
-    "eslint": "^4.19.1",
-    "eslint-config-postcss": "2.0.2",
+    "eslint": "^5.1.0",
+    "eslint-config-logux": "^23.0.2",
+    "eslint-config-postcss": "^3.0.2",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.17.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-standard": "^3.1.0",
     "gulp": "3.9.1",
     "gulp-babel": "7.0.1",
     "gulp-changed": "^3.2.0",
-    "gulp-eslint": "^4.0.2",
+    "gulp-eslint": "^5.0.0",
     "gulp-jest": "^4.0.2",
-    "gulp-json-editor": "^2.3.0",
+    "gulp-json-editor": "^2.4.1",
     "gulp-sourcemaps": "^2.6.4",
-    "jest": "^22.4.3",
-    "jest-cli": "^22.4.3",
-    "lint-staged": "^7.1.0",
+    "jest": "^23.4.1",
+    "jest-cli": "^23.4.1",
+    "lint-staged": "^7.2.0",
     "postcss-parser-tests": "^6.3.0",
     "pre-commit": "^1.2.2",
     "run-sequence": "2.2.1"
@@ -47,18 +58,18 @@
     "parser": "babel-eslint",
     "extends": "eslint-config-postcss",
     "rules": {
-      "consistent-return": "off",
-      "key-spacing": [
-        "error",
-        {
-          "align": "value"
-        }
-      ],
-      "complexity": "off"
+      "consistent-return": "off"
     },
-    "env": {
-      "jest": true
-    }
+    "overrides": [
+      {
+        "files": [
+          "gulpfile.js"
+        ],
+        "rules": {
+          "global-require": "off"
+        }
+      }
+    ]
   },
   "jest": {
     "testEnvironment": "node",

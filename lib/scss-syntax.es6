@@ -1,4 +1,4 @@
-import stringify from './scss-stringify';
-import parse     from './scss-parse';
+const stringify = require('./scss-stringify')
+const parse = require('./scss-parse')
 
-export default { parse, stringify };
+module.exports = { parse, stringify }

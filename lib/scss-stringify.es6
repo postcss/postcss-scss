@@ -1,6 +1,6 @@
-import ScssStringifier from './scss-stringifier';
+const ScssStringifier = require('./scss-stringifier')
 
-export default function scssStringify(node, builder) {
-    let str = new ScssStringifier(builder);
-    str.stringify(node);
+module.exports = function scssStringify (node, builder) {
+  const str = new ScssStringifier(builder)
+  str.stringify(node)
 }
