@@ -57,7 +57,7 @@ gulp.task('build', done => {
 
 // Lint
 
-gulp.task('lint', () => {
+gulp.task('lint', ['compile'], () => {
   const eslint = require('gulp-eslint')
   return gulp.src(['*.js', 'lib/*.es6', 'test/*.js'])
     .pipe(eslint())
