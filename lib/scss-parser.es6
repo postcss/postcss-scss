@@ -1,8 +1,8 @@
-const Comment = require('postcss/lib/comment')
-const Parser = require('postcss/lib/parser')
+let Comment = require('postcss/lib/comment')
+let Parser = require('postcss/lib/parser')
 
-const NestedDeclaration = require('./nested-declaration')
-const scssTokenizer = require('./scss-tokenize')
+let NestedDeclaration = require('./nested-declaration')
+let scssTokenizer = require('./scss-tokenize')
 
 class ScssParser extends Parser {
   createTokenizer () {
@@ -13,7 +13,7 @@ class ScssParser extends Parser {
     let withColon = false
     let brackets = 0
     let value = ''
-    for (const i of tokens) {
+    for (let i of tokens) {
       if (withColon) {
         if (i[0] !== 'comment' && i[0] !== '{') {
           value += i[1]
@@ -33,10 +33,10 @@ class ScssParser extends Parser {
       super.rule(tokens)
     } else {
       tokens.pop()
-      const node = new NestedDeclaration()
+      let node = new NestedDeclaration()
       this.init(node)
 
-      const last = tokens[tokens.length - 1]
+      let last = tokens[tokens.length - 1]
       if (last[4]) {
         node.source.end = { line: last[4], column: last[5] }
       } else {
@@ -50,7 +50,7 @@ class ScssParser extends Parser {
 
       node.prop = ''
       while (tokens.length) {
-        const type = tokens[0][0]
+        let type = tokens[0][0]
         if (type === ':' || type === 'space' || type === 'comment') {
           break
         }
@@ -89,10 +89,10 @@ class ScssParser extends Parser {
           }
           break
         } else if (token[1] === 'important') {
-          const cache = tokens.slice(0)
+          let cache = tokens.slice(0)
           let str = ''
           for (let j = i; j > 0; j--) {
-            const type = cache[j][0]
+            let type = cache[j][0]
             if (str.trim().indexOf('!') === 0 &&
                             type !== 'space'
             ) {
@@ -124,19 +124,19 @@ class ScssParser extends Parser {
 
   comment (token) {
     if (token[6] === 'inline') {
-      const node = new Comment()
+      let node = new Comment()
       this.init(node, token[2], token[3])
       node.raws.inline = true
       node.source.end = { line: token[4], column: token[5] }
 
-      const text = token[1].slice(2)
+      let text = token[1].slice(2)
       if (/^\s*$/.test(text)) {
         node.text = ''
         node.raws.left = text
         node.raws.right = ''
       } else {
-        const match = text.match(/^(\s*)([^]*[^\s])(\s*)$/)
-        const fixed = match[2].replace(/(\*\/|\/\*)/g, '*//*')
+        let match = text.match(/^(\s*)([^]*[^\s])(\s*)$/)
+        let fixed = match[2].replace(/(\*\/|\/\*)/g, '*//*')
         node.text = fixed
         node.raws.left = match[1]
         node.raws.right = match[3]
@@ -150,10 +150,10 @@ class ScssParser extends Parser {
   raw (node, prop, tokens) {
     super.raw(node, prop, tokens)
     if (node.raws[prop]) {
-      const scss = node.raws[prop].raw
+      let scss = node.raws[prop].raw
       node.raws[prop].raw = tokens.reduce((all, i) => {
         if (i[0] === 'comment' && i[6] === 'inline') {
-          const text = i[1].slice(2).replace(/(\*\/|\/\*)/g, '*//*')
+          let text = i[1].slice(2).replace(/(\*\/|\/\*)/g, '*//*')
           return all + '/*' + text + '*/'
         } else {
           return all + i[1]

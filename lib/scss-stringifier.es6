@@ -1,12 +1,12 @@
-const Stringifier = require('postcss/lib/stringifier')
+let Stringifier = require('postcss/lib/stringifier')
 
 class ScssStringifier extends Stringifier {
   comment (node) {
-    const left = this.raw(node, 'left', 'commentLeft')
-    const right = this.raw(node, 'right', 'commentRight')
+    let left = this.raw(node, 'left', 'commentLeft')
+    let right = this.raw(node, 'right', 'commentRight')
 
     if (node.raws.inline) {
-      const text = node.raws.text || node.text
+      let text = node.raws.text || node.text
       this.builder('//' + left + text + right, node)
     } else {
       this.builder('/*' + left + node.text + right + '*/', node)
@@ -17,7 +17,7 @@ class ScssStringifier extends Stringifier {
     if (!node.isNested) {
       super.decl(node, semicolon)
     } else {
-      const between = this.raw(node, 'between', 'colon')
+      let between = this.raw(node, 'between', 'colon')
       let string = node.prop + between + this.rawValue(node, 'value')
       if (node.important) {
         string += node.raws.important || ' !important'
@@ -38,8 +38,8 @@ class ScssStringifier extends Stringifier {
   }
 
   rawValue (node, prop) {
-    const value = node[prop]
-    const raw = node.raws[prop]
+    let value = node[prop]
+    let raw = node.raws[prop]
     if (raw && raw.value === value) {
       return raw.scss ? raw.scss : raw.raw
     } else {

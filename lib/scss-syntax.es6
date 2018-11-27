@@ -1,4 +1,4 @@
-const stringify = require('./scss-stringify')
-const parse = require('./scss-parse')
+let stringify = require('./scss-stringify')
+let parse = require('./scss-parse')
 
 module.exports = { parse, stringify }

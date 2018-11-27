@@ -1,13 +1,13 @@
-const cases = require('postcss-parser-tests')
+let cases = require('postcss-parser-tests')
 
-const stringify = require('../lib/scss-stringify')
-const parse = require('../lib/scss-parse')
+let stringify = require('../lib/scss-stringify')
+let parse = require('../lib/scss-parse')
 
 cases.each((name, css) => {
   if (name === 'bom.css') return
 
   it('stringifies ' + name, () => {
-    const root = parse(css)
+    let root = parse(css)
     let result = ''
     stringify(root, i => {
       result += i
@@ -17,7 +17,7 @@ cases.each((name, css) => {
 })
 
 it('stringifies inline comment', () => {
-  const root = parse('// comment\na {}')
+  let root = parse('// comment\na {}')
   let result = ''
   stringify(root, i => {
     result += i
@@ -26,7 +26,7 @@ it('stringifies inline comment', () => {
 })
 
 it('stringifies inline comment with comments inside', () => {
-  const root = parse('// a/*b*/c\na {}')
+  let root = parse('// a/*b*/c\na {}')
   let result = ''
   stringify(root, i => {
     result += i
@@ -35,7 +35,7 @@ it('stringifies inline comment with comments inside', () => {
 })
 
 it('stringifies inline comment inside selectors', () => {
-  const root = parse('a\n// comment\nb {}')
+  let root = parse('a\n// comment\nb {}')
   let result = ''
   stringify(root, i => {
     result += i
@@ -44,7 +44,7 @@ it('stringifies inline comment inside selectors', () => {
 })
 
 it('stringifies inline comment in the end of file', () => {
-  const root = parse('// comment')
+  let root = parse('// comment')
   let result = ''
   stringify(root, i => {
     result += i
@@ -53,7 +53,7 @@ it('stringifies inline comment in the end of file', () => {
 })
 
 it('stringifies rule with usual props', () => {
-  const root = parse('a { color: red; text-align: justify ; }')
+  let root = parse('a { color: red; text-align: justify ; }')
   let result = ''
   stringify(root, i => {
     result += i
@@ -62,7 +62,7 @@ it('stringifies rule with usual props', () => {
 })
 
 it('stringifies nested props', () => {
-  const root = parse('a { \n margin : 0!important { left: 10px; }}')
+  let root = parse('a { \n margin : 0!important { left: 10px; }}')
   let result = ''
   stringify(root, i => {
     result += i
@@ -71,7 +71,7 @@ it('stringifies nested props', () => {
 })
 
 it('stringifies nested props with more newlines', () => {
-  const root = parse('a { \n margin : 0 !important \n { \n left: 10px; } \n}')
+  let root = parse('a { \n margin : 0 !important \n { \n left: 10px; } \n}')
   let result = ''
   stringify(root, i => {
     result += i

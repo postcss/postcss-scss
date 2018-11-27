@@ -32,20 +32,20 @@ const RE_NEW_LINE = /[\r\f\n]/g // SCSS PATCH
 
 // SCSS PATCH function name was changed
 module.exports = function scssTokenize (input, options = {}) {
-  const css = input.css.valueOf()
-  const ignore = options.ignoreErrors
+  let css = input.css.valueOf()
+  let ignore = options.ignoreErrors
 
   let code, next, quote, lines, last, content, escape,
     nextLine, nextOffset, escaped, prev, n, currentToken
 
   let brackets // SCSS PATCH
 
-  const length = css.length
+  let length = css.length
   let offset = -1
   let line = 1
   let pos = 0
-  const buffer = []
-  const returned = []
+  let buffer = []
+  let returned = []
 
   function unclosed (what) {
     throw input.error('Unclosed ' + what, line, pos - offset)

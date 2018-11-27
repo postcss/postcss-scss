@@ -1,10 +1,10 @@
-const Input = require('postcss/lib/input')
+let Input = require('postcss/lib/input')
 
-const tokenizer = require('../lib/scss-tokenize')
+let tokenizer = require('../lib/scss-tokenize')
 
 function tokenize (css) {
-  const processor = tokenizer(new Input(css))
-  const tokens = []
+  let processor = tokenizer(new Input(css))
+  let tokens = []
   while (!processor.endOfFile()) {
     tokens.push(processor.nextToken())
   }
