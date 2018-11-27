@@ -17,36 +17,36 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "postcss": "^7.0.0"
+    "postcss": "^7.0.6"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.6",
-    "babel-plugin-add-module-exports": "0.2.1",
-    "babel-plugin-precompile-charcodes": "1.1.0",
-    "babel-preset-env": "^1.7.0",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@logux/eslint-config": "^27.0.0",
+    "babel-core": "^7.0.0-0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-add-module-exports": "1.0.0",
     "del": "^3.0.0",
-    "eslint": "^5.1.0",
-    "eslint-config-logux": "^23.0.2",
-    "eslint-config-postcss": "^3.0.2",
-    "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jest": "^21.17.0",
-    "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.8.0",
+    "eslint": "^5.9.0",
+    "eslint-config-postcss": "^3.0.7",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^22.0.1",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-standard": "^3.1.0",
+    "eslint-plugin-standard": "^4.0.0",
     "gulp": "3.9.1",
-    "gulp-babel": "7.0.1",
+    "gulp-babel": "8.0.0",
     "gulp-changed": "^3.2.0",
     "gulp-eslint": "^5.0.0",
     "gulp-jest": "^4.0.2",
-    "gulp-json-editor": "^2.4.1",
+    "gulp-json-editor": "^2.4.3",
     "gulp-sourcemaps": "^2.6.4",
-    "jest": "^23.4.1",
-    "jest-cli": "^23.4.1",
-    "lint-staged": "^7.2.0",
-    "postcss-parser-tests": "^6.3.0",
+    "jest": "^23.6.0",
+    "jest-cli": "^23.6.0",
+    "lint-staged": "^8.1.0",
+    "postcss-parser-tests": "^6.3.1",
     "pre-commit": "^1.2.2",
     "run-sequence": "2.2.1"
   },
@@ -80,26 +80,23 @@
   "babel": {
     "presets": [
       [
-        "env",
+        "@babel/env",
         {
-          "targets": {
-            "browsers": [
-              "last 2 version",
-              "not dead",
-              "not Explorer 11",
-              "not ExplorerMobile 11"
-            ],
-            "node": 6
-          },
           "loose": true
         }
       ]
     ],
     "plugins": [
-      "add-module-exports",
-      "precompile-charcodes"
+      "add-module-exports"
     ]
   },
+  "browserslist": [
+    "last 2 version",
+    "not dead",
+    "not Explorer 11",
+    "not ExplorerMobile 11",
+    "node 6"
+  ],
   "main": "lib/scss-syntax",
   "lint-staged": {
     "test/*.js": "eslint",
