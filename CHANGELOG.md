@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1
+* Add TypeScript support (by Natalie Weizenbaum).
+* Reduce npm package size.
+
 ## 2.0
 * Remove Node.js 9 and Node.js 4 support.
 * Remove IE and “dead” browsers from Babel.
