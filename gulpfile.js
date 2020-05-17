@@ -50,10 +50,9 @@ gulp.task('build:docs', () => {
     .pipe(gulp.dest('build'))
 })
 
-gulp.task('build', done => {
-  let runSequence = require('run-sequence')
-  runSequence('clean', ['build:lib', 'build:docs', 'build:package'], done)
-})
+gulp.task('build', gulp.series('compile',
+  gulp.parallel('build:lib', 'build:docs', 'build:package')
+))
 
 // Test
 
