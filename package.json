@@ -18,7 +18,7 @@
   },
   "scripts": {
     "lint-staged": "lint-staged",
-    "test": "eslint test/*.js lib/*.es6 *.js && gulp"
+    "test": "gulp && eslint test/*.js lib/*.es6 *.js"
   },
   "dependencies": {
     "postcss": "^7.0.6"
