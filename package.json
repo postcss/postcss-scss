@@ -16,6 +16,10 @@
   "engines": {
     "node": ">=6.0.0"
   },
+  "scripts": {
+    "lint-staged": "lint-staged",
+    "test": "eslint test/*.js lib/*.es6 *.js && gulp"
+  },
   "dependencies": {
     "postcss": "^7.0.6"
   },
@@ -38,23 +42,18 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^4.0.0",
-    "gulp": "3.9.1",
+    "gulp": "4.0.2",
     "gulp-babel": "8.0.0",
-    "gulp-changed": "^3.2.0",
-    "gulp-eslint": "^5.0.0",
-    "gulp-jest": "^4.0.2",
-    "gulp-json-editor": "^2.4.3",
-    "gulp-sourcemaps": "^2.6.4",
+    "gulp-changed": "^4.0.2",
+    "gulp-jest": "^4.0.3",
+    "gulp-json-editor": "^2.5.4",
+    "gulp-sourcemaps": "^2.6.5",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
     "lint-staged": "^8.1.0",
     "postcss-parser-tests": "^6.3.1",
     "pre-commit": "^1.2.2",
     "run-sequence": "2.2.1"
-  },
-  "scripts": {
-    "lint-staged": "lint-staged",
-    "test": "gulp"
   },
   "eslintConfig": {
     "parser": "babel-eslint",

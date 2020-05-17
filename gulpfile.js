@@ -21,9 +21,9 @@ gulp.task('compile', () => {
     .pipe(gulp.dest('lib'))
 })
 
-gulp.task('build:lib', ['compile'], () => {
+gulp.task('build:lib', gulp.series('compile', () => {
   return gulp.src('lib/*.js').pipe(gulp.dest('build/lib'))
-})
+}))
 
 gulp.task('build:package', () => {
   let editor = require('gulp-json-editor')
@@ -55,24 +55,14 @@ gulp.task('build', done => {
   runSequence('clean', ['build:lib', 'build:docs', 'build:package'], done)
 })
 
-// Lint
-
-gulp.task('lint', ['compile'], () => {
-  let eslint = require('gulp-eslint')
-  return gulp.src(['*.js', 'lib/*.es6', 'test/*.js'])
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
-})
-
 // Test
 
-gulp.task('test', ['compile'], () => {
+gulp.task('test', gulp.series('compile', () => {
   let jest = require('gulp-jest').default
   return gulp.src('test/').pipe(jest())
-})
+}))
 
-gulp.task('integration', ['compile'], done => {
+gulp.task('integration', gulp.series('compile', done => {
   let postcss = require('postcss')
   let real = require('postcss-parser-tests/real')
   let scss = require('./')
@@ -82,8 +72,8 @@ gulp.task('integration', ['compile'], done => {
       map: { annotation: false }
     })
   })
-})
+}))
 
 // Common
 
-gulp.task('default', ['lint', 'test', 'integration'])
+gulp.task('default', gulp.parallel('test', 'integration'))
