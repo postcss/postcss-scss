@@ -35,6 +35,7 @@ gulp.task('build:package', () => {
       delete json.eslintConfig
       delete json['pre-commit']
       delete json['lint-staged']
+      delete json.browserslist
       delete json.devDependencies
       return json
     }))
