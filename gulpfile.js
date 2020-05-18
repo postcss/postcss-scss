@@ -42,6 +42,11 @@ gulp.task('build:package', () => {
     .pipe(gulp.dest('build'))
 })
 
+gulp.task('build:types', () => {
+  return gulp.src(['lib/*.d.ts'])
+    .pipe(gulp.dest('build/lib'))
+})
+
 gulp.task('build:docs', () => {
   let ignore = require('fs').readFileSync('.npmignore').toString()
     .trim().split(/\n+/)
@@ -52,7 +57,7 @@ gulp.task('build:docs', () => {
 })
 
 gulp.task('build', gulp.series('compile',
-  gulp.parallel('build:lib', 'build:docs', 'build:package')
+  gulp.parallel('build:lib', 'build:docs', 'build:package', 'build:types')
 ))
 
 // Test
