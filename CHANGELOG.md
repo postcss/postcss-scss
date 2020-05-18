@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.1.1
+* Add `*.d.ts` files to npm package.
+
 ## 2.1
 * Add TypeScript support (by Natalie Weizenbaum).
 * Reduce npm package size.
