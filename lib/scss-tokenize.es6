@@ -46,7 +46,11 @@ module.exports = function scssTokenize (input, options = {}) {
   let pos = 0
   let buffer = []
   let returned = []
-
+  
+  function position () {
+    return pos
+  }
+ 
   function unclosed (what) {
     throw input.error('Unclosed ' + what, line, pos - offset)
   }
@@ -436,6 +440,7 @@ module.exports = function scssTokenize (input, options = {}) {
   return {
     back,
     nextToken,
-    endOfFile
+    endOfFile,
+    position
   }
 }
