@@ -1,9 +1,9 @@
-let cases = require('postcss-parser-tests')
+let { eachTest } = require('postcss-parser-tests')
 
 let stringify = require('../lib/scss-stringify')
 let parse = require('../lib/scss-parse')
 
-cases.each((name, css) => {
+eachTest((name, css) => {
   if (name === 'bom.css') return
 
   it('stringifies ' + name, () => {
@@ -77,5 +77,6 @@ it('stringifies nested props with more newlines', () => {
     result += i
   })
   expect(result).toEqual(
-    'a { \n margin : 0 !important \n { \n left: 10px; } \n}')
+    'a { \n margin : 0 !important \n { \n left: 10px; } \n}'
+  )
 })

@@ -1,10 +1,10 @@
-let cases = require('postcss-parser-tests')
+let { eachTest, jsonify } = require('postcss-parser-tests')
 
 let parse = require('../lib/scss-parse')
 
-cases.each((name, css, json) => {
+eachTest((name, css, json) => {
   it('parses ' + name, () => {
-    let parsed = cases.jsonify(parse(css, { from: name }))
+    let parsed = jsonify(parse(css, { from: name }))
     expect(parsed).toEqual(json)
   })
 })
@@ -156,7 +156,7 @@ it('parses nested props with important', () => {
   let root = parse('a { margin: 0!important { left: 10px; }}')
   expect(root.first.first.prop).toEqual('margin')
   expect(root.first.first.value).toEqual('0')
-  expect(root.first.first.important).toBeTruthy()
+  expect(root.first.first.important).toBe(true)
 })
 
 it('parses interpolation with variable', () => {

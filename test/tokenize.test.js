@@ -1,4 +1,4 @@
-let Input = require('postcss/lib/input')
+let { Input } = require('postcss')
 
 let tokenizer = require('../lib/scss-tokenize')
 
