@@ -17,33 +17,33 @@ function run (css, tokens) {
 
 it('tokenizes inline comments', () => {
   run('// a\n', [
-    ['comment', '// a', 1, 1, 1, 4, 'inline'],
+    ['comment', '// a', 0, 3, 'inline'],
     ['space', '\n']
   ])
 })
 
 it('tokenizes inline comments with any new line', () => {
   run('// a\r\n', [
-    ['comment', '// a', 1, 1, 1, 4, 'inline'],
+    ['comment', '// a', 0, 3, 'inline'],
     ['space', '\r\n']
   ])
 })
 
 it('tokenizes inline comments in end of file', () => {
-  run('// a', [['comment', '// a', 1, 1, 1, 4, 'inline']])
+  run('// a', [['comment', '// a', 0, 3, 'inline']])
 })
 
 it('tokenizes interpolation', () => {
-  run('#{a\nb}', [['word', '#{a\nb}', 1, 1, 2, 2]])
+  run('#{a\nb}', [['word', '#{a\nb}', 0, 5]])
 })
 
 it('tokenizes recursively interpolations', () => {
-  run('#{#{#{}}}', [['word', '#{#{#{}}}', 1, 1, 1, 9]])
+  run('#{#{#{}}}', [['word', '#{#{#{}}}', 0, 8]])
 })
 
 it('tokenizes multiline url()', () => {
   run('url(a\nb)', [
-    ['word', 'url', 1, 1, 1, 3],
-    ['brackets', '(a\nb)', 1, 4, 2, 2]
+    ['word', 'url', 0, 2],
+    ['brackets', '(a\nb)', 3, 7]
   ])
 })
