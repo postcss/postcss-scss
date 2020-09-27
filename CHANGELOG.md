@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.0.2
+* Added funding links.
+
 ## 3.0.1
 * Fix ES modules support.
 
