@@ -28,6 +28,10 @@
   "scripts": {
     "test": "jest && eslint-ci . && ./test/integration.js"
   },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/postcss/"
+  },
   "dependencies": {
     "postcss": "^8.1.0"
   },
