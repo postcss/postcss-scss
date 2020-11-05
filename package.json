@@ -23,7 +23,7 @@
       "require": "./lib/scss-syntax.js",
       "import": "./lib/scss-syntax.mjs"
     },
-    "./": "./"
+    "./*": "./*"
   },
   "scripts": {
     "test": "jest && eslint-ci . && ./test/integration.js"
