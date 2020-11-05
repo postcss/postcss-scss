@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.0.3
+* Fixed Node.js 15 warning.
+
 ## 3.0.2
 * Added funding links.
 
