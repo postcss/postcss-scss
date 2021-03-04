@@ -37,6 +37,18 @@ it('tokenizes interpolation', () => {
   run('#{a\nb}', [['word', '#{a\nb}', 0, 5]])
 })
 
+it('tokenizes interpolation with escaped brace', () => {
+  run('#{"\\}"}', [['word', '#{"\\}"}', 0, 6]])
+})
+
+it('tokenizes interpolation with escaped quote', () => {
+  run('#{"\\""}', [['word', '#{"\\""}', 0, 6]])
+})
+
+it('tokenizes interpolation with escaped backslash', () => {
+  run('#{"\\\\"}', [['word', '#{"\\\\"}', 0, 6]])
+})
+
 it('tokenizes recursively interpolations', () => {
   run('#{#{#{}}}', [['word', '#{#{#{}}}', 0, 8]])
 })
