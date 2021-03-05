@@ -26,7 +26,7 @@
     "./": "./"
   },
   "scripts": {
-    "test": "jest && eslint-ci . && ./test/integration.js"
+    "test": "jest && eslint . && ./test/integration.js"
   },
   "funding": {
     "type": "opencollective",
@@ -37,10 +37,8 @@
   },
   "devDependencies": {
     "@logux/eslint-config": "^42.2.0",
-    "ci-job-number": "^1.2.2",
     "clean-publish": "^1.1.8",
     "eslint": "^7.12.1",
-    "eslint-ci": "^1.0.0",
     "eslint-config-standard": "^16.0.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.1.0",
