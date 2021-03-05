@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 3.0.5
+* Fixed escape in interpolation (by Jennifer Thakar).
+
 ## 3.0.4
 * Reverted `package.exports` Node.js 15 fix.
 
