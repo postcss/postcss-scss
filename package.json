@@ -14,7 +14,7 @@
   "license": "MIT",
   "repository": "postcss/postcss-scss",
   "engines": {
-    "node": ">=10.0"
+    "node": ">=12.0"
   },
   "main": "lib/scss-syntax",
   "types": "lib/scss-syntax.d.ts",
@@ -23,7 +23,7 @@
       "require": "./lib/scss-syntax.js",
       "import": "./lib/scss-syntax.mjs"
     },
-    "./": "./"
+    "./package.json": "./package.json"
   },
   "scripts": {
     "test": "jest && eslint . && ./test/integration.js"
@@ -32,35 +32,45 @@
     "type": "opencollective",
     "url": "https://opencollective.com/postcss/"
   },
-  "dependencies": {
-    "postcss": "^8.2.7"
+  "peerDependencies": {
+    "postcss": "^8.3.3"
   },
   "devDependencies": {
-    "@logux/eslint-config": "^45.1.0",
-    "clean-publish": "^1.1.9",
-    "eslint": "^7.21.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest": "^24.1.5",
+    "@logux/eslint-config": "^45.4.4",
+    "clean-publish": "^2.2.0",
+    "eslint": "^7.28.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prefer-let": "^1.1.0",
-    "eslint-plugin-prettierx": "^0.17.1",
-    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-unicorn": "^28.0.2",
-    "husky": "^4.3.0",
-    "jest": "^26.6.3",
-    "lint-staged": "^10.5.4",
+    "eslint-plugin-unicorn": "^33.0.1",
+    "jest": "^27.0.4",
+    "lint-staged": "^11.0.0",
+    "postcss": "^8.3.3",
     "postcss-parser-tests": "^8.3.5",
-    "postcss-sharec-config": "^0.2.2"
+    "postcss-sharec-config": "^0.4.1",
+    "prettier": "^2.2.1",
+    "simple-git-hooks": "^2.4.1"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "jsxSingleQuote": false,
+    "quoteProps": "consistent",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none"
   },
   "lint-staged": {
-    "*.js": "eslint --fix"
+    "*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   },
   "eslintConfig": {
     "extends": "@logux/eslint-config",
@@ -78,6 +88,6 @@
   },
   "sharec": {
     "config": "postcss-sharec-config",
-    "version": "0.2.2"
+    "version": "0.4.1"
   }
 }
