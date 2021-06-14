@@ -1,4 +1,4 @@
-# PostCSS SCSS Syntax [![Build Status][ci-img]][ci]
+# PostCSS SCSS Syntax
 
 <img align="right" width="95" height="95"
      title="Philosopher’s stone, logo of PostCSS"
@@ -11,25 +11,18 @@ at-rules & variables as properties, so that PostCSS plugins can then transform
 SCSS source code alongside CSS.
 
 [PostCSS]: https://github.com/postcss/postcss
-[ci-img]:  https://img.shields.io/travis/postcss/postcss-scss.svg
 [SCSS]:    http://sass-lang.com/
-[ci]:      https://travis-ci.org/postcss/postcss-scss
 
 <a href="https://evilmartians.com/?utm_source=postcss">
-<img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg" alt="Sponsored by Evil Martians" width="236" height="54">
+  <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
+    alt="Sponsored by Evil Martians" width="236" height="54">
 </a>
 
 
 ## Install
 
 ```sh
-npm --save install postcss-scss
-```
-
-or (if you use [Yarn](https://yarnpkg.com/))
-
-```sh
-yarn add --dev postcss-scss
+npm --save install postcss postcss-scss
 ```
 
 
