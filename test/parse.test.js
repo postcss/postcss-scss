@@ -12,6 +12,11 @@ eachTest((name, css, json) => {
 it('parses nested rules', () => {
   let root = parse('a { b {} }')
   expect(root.first.first.selector).toEqual('b')
+
+  expect(root.first.first.source.start.line).toEqual(1)
+  expect(root.first.first.source.start.column).toEqual(5)
+  expect(root.first.first.source.end.line).toEqual(1)
+  expect(root.first.first.source.end.column).toEqual(8)
 })
 
 it('parses at-rules inside rules', () => {
@@ -127,6 +132,11 @@ it('parses nested props as rule', () => {
   let root = parse('a { margin: { left: 10px; }}')
   expect(root.first.first.selector).toEqual('margin:')
   expect(root.first.first.first.prop).toEqual('left')
+
+  expect(root.first.first.source.start.line).toEqual(1)
+  expect(root.first.first.source.start.column).toEqual(5)
+  expect(root.first.first.source.end.line).toEqual(1)
+  expect(root.first.first.source.end.column).toEqual(27)
 })
 
 it('parses nested props with value', () => {
@@ -138,6 +148,11 @@ it('parses nested props with value', () => {
 
   expect(root.first.first.first.prop).toEqual('left')
   expect(root.first.first.first.value).toEqual('10px')
+
+  expect(root.first.first.source.start.line).toEqual(1)
+  expect(root.first.first.source.start.column).toEqual(5)
+  expect(root.first.first.source.end.line).toEqual(1)
+  expect(root.first.first.source.end.column).toEqual(29)
 })
 
 it('parses nested props with space-less digit', () => {
@@ -145,11 +160,21 @@ it('parses nested props with space-less digit', () => {
   expect(root.first.first.prop).toEqual('margin')
   expect(root.first.first.value).toEqual('0')
   expect(root.first.first.first.prop).toEqual('left')
+
+  expect(root.first.first.source.start.line).toEqual(1)
+  expect(root.first.first.source.start.column).toEqual(5)
+  expect(root.first.first.source.end.line).toEqual(1)
+  expect(root.first.first.source.end.column).toEqual(28)
 })
 
 it('parses nested props with new line as rule', () => {
   let root = parse('a { \n margin  \n:0 { left: 10px; }}')
   expect(root.first.first.selector).toEqual('margin  \n:0')
+
+  expect(root.first.first.source.start.line).toEqual(2)
+  expect(root.first.first.source.start.column).toEqual(2)
+  expect(root.first.first.source.end.line).toEqual(3)
+  expect(root.first.first.source.end.column).toEqual(18)
 })
 
 it('parses nested props with important', () => {
@@ -157,6 +182,11 @@ it('parses nested props with important', () => {
   expect(root.first.first.prop).toEqual('margin')
   expect(root.first.first.value).toEqual('0')
   expect(root.first.first.important).toBe(true)
+
+  expect(root.first.first.source.start.line).toEqual(1)
+  expect(root.first.first.source.start.column).toEqual(5)
+  expect(root.first.first.source.end.line).toEqual(1)
+  expect(root.first.first.source.end.column).toEqual(39)
 })
 
 it('parses interpolation with variable', () => {
