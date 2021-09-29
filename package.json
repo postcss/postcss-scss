@@ -36,24 +36,24 @@
     "postcss": "^8.3.3"
   },
   "devDependencies": {
-    "@logux/eslint-config": "^45.4.4",
-    "clean-publish": "^2.2.0",
-    "eslint": "^7.28.0",
+    "@logux/eslint-config": "^45.4.8",
+    "clean-publish": "^3.0.3",
+    "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^24.5.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prefer-let": "^1.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-unicorn": "^33.0.1",
-    "jest": "^27.0.4",
-    "lint-staged": "^11.0.0",
-    "postcss": "^8.3.3",
-    "postcss-parser-tests": "^8.3.5",
+    "eslint-plugin-unicorn": "^36.0.0",
+    "jest": "^27.2.3",
+    "lint-staged": "^11.1.2",
+    "postcss": "^8.3.8",
+    "postcss-parser-tests": "^8.3.6",
     "postcss-sharec-config": "^0.4.1",
-    "prettier": "^2.2.1",
-    "simple-git-hooks": "^2.4.1"
+    "prettier": "^2.4.1",
+    "simple-git-hooks": "^2.6.1"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
