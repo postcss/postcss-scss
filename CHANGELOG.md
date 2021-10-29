@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.0.2
+* Fixed at-rules with interpolated parsing (by Natalie Weizenbaum).
+
 ## 4.0.1
 * Fixed source start line and column (by Ivan Nikolić).
 
