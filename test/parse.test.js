@@ -100,8 +100,33 @@ it('parses interpolation inside interpolation', () => {
   expect(root.first.value).toEqual('#{"#{&}__column"}')
 })
 
+it("parses interpolation that's the entire at-rule", () => {
+  let root = parse('@#{$var} param { }')
+  expect(root.first.name).toEqual('#{$var}')
+  expect(root.first.params).toEqual('param')
+})
+
+it('parses interpolation at the beginning of at-rule', () => {
+  let root = parse('@#{$var}suffix param { }')
+  expect(root.first.name).toEqual('#{$var}suffix')
+  expect(root.first.params).toEqual('param')
+})
+
+it('parses interpolation within at-rule', () => {
+  let root = parse('@before#{$var}after param { }')
+  expect(root.first.name).toEqual('before#{$var}after')
+  expect(root.first.params).toEqual('param')
+})
+
 it('parses interpolation right after at-rule', () => {
   let root = parse('@media#{$var} { }')
+  expect(root.first.name).toEqual('media#{$var}')
+  expect(root.first.params).toEqual('')
+})
+
+it('parses interpolation in at-rule value', () => {
+  let root = parse('@media #{$var} { }')
+  expect(root.first.name).toEqual('media')
   expect(root.first.params).toEqual('#{$var}')
 })
 
