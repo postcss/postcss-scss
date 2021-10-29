@@ -22,7 +22,7 @@ it('stringifies inline comment', () => {
   stringify(root, i => {
     result += i
   })
-  expect(result).toEqual('// comment\na {}')
+  expect(result).toBe('// comment\na {}')
 })
 
 it('stringifies inline comment with comments inside', () => {
@@ -31,7 +31,7 @@ it('stringifies inline comment with comments inside', () => {
   stringify(root, i => {
     result += i
   })
-  expect(result).toEqual('// a/*b*/c\na {}')
+  expect(result).toBe('// a/*b*/c\na {}')
 })
 
 it('stringifies inline comment inside selectors', () => {
@@ -40,7 +40,7 @@ it('stringifies inline comment inside selectors', () => {
   stringify(root, i => {
     result += i
   })
-  expect(result).toEqual('a\n// comment\nb {}')
+  expect(result).toBe('a\n// comment\nb {}')
 })
 
 it('stringifies inline comment in the end of file', () => {
@@ -49,7 +49,7 @@ it('stringifies inline comment in the end of file', () => {
   stringify(root, i => {
     result += i
   })
-  expect(result).toEqual('// comment')
+  expect(result).toBe('// comment')
 })
 
 it('stringifies rule with usual props', () => {
@@ -58,7 +58,7 @@ it('stringifies rule with usual props', () => {
   stringify(root, i => {
     result += i
   })
-  expect(result).toEqual('a { color: red; text-align: justify ; }')
+  expect(result).toBe('a { color: red; text-align: justify ; }')
 })
 
 it('stringifies nested props', () => {
@@ -67,7 +67,7 @@ it('stringifies nested props', () => {
   stringify(root, i => {
     result += i
   })
-  expect(result).toEqual('a { \n margin : 0!important { left: 10px; }}')
+  expect(result).toBe('a { \n margin : 0!important { left: 10px; }}')
 })
 
 it('stringifies nested props with more newlines', () => {
@@ -76,7 +76,5 @@ it('stringifies nested props with more newlines', () => {
   stringify(root, i => {
     result += i
   })
-  expect(result).toEqual(
-    'a { \n margin : 0 !important \n { \n left: 10px; } \n}'
-  )
+  expect(result).toBe('a { \n margin : 0 !important \n { \n left: 10px; } \n}')
 })
