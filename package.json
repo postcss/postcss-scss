@@ -47,11 +47,7 @@
     "eslint-plugin-promise": "^6.0.0",
     "postcss": "^8.4.5",
     "postcss-parser-tests": "^8.3.7",
-    "postcss-sharec-config": "^0.5.2",
     "uvu": "^0.5.3"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
   },
   "prettier": {
     "arrowParens": "avoid",
@@ -65,14 +61,6 @@
     "extends": "@logux/eslint-config",
     "rules": {
       "consistent-return": "off"
-    }
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "coverageThreshold": {
-      "global": {
-        "statements": 100
-      }
     }
   },
   "clean-publish": {
