@@ -26,7 +26,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "test": "jest && eslint . && ./test/integration.js"
+    "unit": "uvu . '\\.test\\.js$'",
+    "test": "pnpm unit && eslint . && ./test/integration.js"
   },
   "funding": {
     "type": "opencollective",
@@ -36,24 +37,18 @@
     "postcss": "^8.3.3"
   },
   "devDependencies": {
-    "@logux/eslint-config": "^46.0.1",
-    "clean-publish": "^3.4.2",
-    "eslint": "^8.1.0",
+    "@logux/eslint-config": "^46.1.1",
+    "clean-publish": "^3.4.5",
+    "eslint": "^8.6.0",
     "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-jest": "^25.2.2",
+    "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prefer-let": "^3.0.0",
-    "eslint-plugin-promise": "^5.1.1",
-    "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-unicorn": "^37.0.1",
-    "jest": "^27.3.1",
-    "lint-staged": "^11.2.6",
-    "postcss": "^8.3.11",
+    "eslint-plugin-prefer-let": "^3.0.1",
+    "eslint-plugin-promise": "^6.0.0",
+    "postcss": "^8.4.5",
     "postcss-parser-tests": "^8.3.7",
     "postcss-sharec-config": "^0.5.2",
-    "prettier": "^2.4.1",
-    "simple-git-hooks": "^2.7.0"
+    "uvu": "^0.5.3"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
@@ -65,12 +60,6 @@
     "semi": false,
     "singleQuote": true,
     "trailingComma": "none"
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "eslint --fix"
-    ]
   },
   "eslintConfig": {
     "extends": "@logux/eslint-config",
@@ -88,9 +77,5 @@
   },
   "clean-publish": {
     "cleanDocs": true
-  },
-  "sharec": {
-    "config": "postcss-sharec-config",
-    "version": "0.5.2"
   }
 }

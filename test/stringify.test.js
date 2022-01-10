@@ -1,4 +1,6 @@
 let { eachTest } = require('postcss-parser-tests')
+let { equal } = require('uvu/assert')
+let { test } = require('uvu')
 
 let stringify = require('../lib/scss-stringify')
 let parse = require('../lib/scss-parse')
@@ -6,75 +8,77 @@ let parse = require('../lib/scss-parse')
 eachTest((name, css) => {
   if (name === 'bom.css') return
 
-  it('stringifies ' + name, () => {
+  test('stringifies ' + name, () => {
     let root = parse(css)
     let result = ''
     stringify(root, i => {
       result += i
     })
-    expect(result).toEqual(css)
+    equal(result, css)
   })
 })
 
-it('stringifies inline comment', () => {
+test('stringifies inline comment', () => {
   let root = parse('// comment\na {}')
   let result = ''
   stringify(root, i => {
     result += i
   })
-  expect(result).toBe('// comment\na {}')
+  equal(result, '// comment\na {}')
 })
 
-it('stringifies inline comment with comments inside', () => {
+test('stringifies inline comment with comments inside', () => {
   let root = parse('// a/*b*/c\na {}')
   let result = ''
   stringify(root, i => {
     result += i
   })
-  expect(result).toBe('// a/*b*/c\na {}')
+  equal(result, '// a/*b*/c\na {}')
 })
 
-it('stringifies inline comment inside selectors', () => {
+test('stringifies inline comment inside selectors', () => {
   let root = parse('a\n// comment\nb {}')
   let result = ''
   stringify(root, i => {
     result += i
   })
-  expect(result).toBe('a\n// comment\nb {}')
+  equal(result, 'a\n// comment\nb {}')
 })
 
-it('stringifies inline comment in the end of file', () => {
+test('stringifies inline comment in the end of file', () => {
   let root = parse('// comment')
   let result = ''
   stringify(root, i => {
     result += i
   })
-  expect(result).toBe('// comment')
+  equal(result, '// comment')
 })
 
-it('stringifies rule with usual props', () => {
+test('stringifies rule with usual props', () => {
   let root = parse('a { color: red; text-align: justify ; }')
   let result = ''
   stringify(root, i => {
     result += i
   })
-  expect(result).toBe('a { color: red; text-align: justify ; }')
+  equal(result, 'a { color: red; text-align: justify ; }')
 })
 
-it('stringifies nested props', () => {
+test('stringifies nested props', () => {
   let root = parse('a { \n margin : 0!important { left: 10px; }}')
   let result = ''
   stringify(root, i => {
     result += i
   })
-  expect(result).toBe('a { \n margin : 0!important { left: 10px; }}')
+  equal(result, 'a { \n margin : 0!important { left: 10px; }}')
 })
 
-it('stringifies nested props with more newlines', () => {
+test('stringifies nested props with more newlines', () => {
   let root = parse('a { \n margin : 0 !important \n { \n left: 10px; } \n}')
   let result = ''
   stringify(root, i => {
     result += i
   })
-  expect(result).toBe('a { \n margin : 0 !important \n { \n left: 10px; } \n}')
+  equal(result, 'a { \n margin : 0 !important \n { \n left: 10px; } \n}')
 })
+
+test.run()

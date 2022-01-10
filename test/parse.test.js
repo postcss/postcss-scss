@@ -1,60 +1,62 @@
 let { eachTest, jsonify } = require('postcss-parser-tests')
+let { equal } = require('uvu/assert')
+let { test } = require('uvu')
 
 let parse = require('../lib/scss-parse')
 
 eachTest((name, css, json) => {
-  it('parses ' + name, () => {
+  test('parses ' + name, () => {
     let parsed = jsonify(parse(css, { from: name }))
-    expect(parsed).toEqual(json)
+    equal(parsed, json)
   })
 })
 
-it('parses nested rules', () => {
+test('parses nested rules', () => {
   let root = parse('a { b {} }')
-  expect(root.first.first.selector).toBe('b')
+  equal(root.first.first.selector, 'b')
 
-  expect(root.first.first.source.start.line).toBe(1)
-  expect(root.first.first.source.start.column).toBe(5)
-  expect(root.first.first.source.end.line).toBe(1)
-  expect(root.first.first.source.end.column).toBe(8)
+  equal(root.first.first.source.start.line, 1)
+  equal(root.first.first.source.start.column, 5)
+  equal(root.first.first.source.end.line, 1)
+  equal(root.first.first.source.end.column, 8)
 })
 
-it('parses at-rules inside rules', () => {
+test('parses at-rules inside rules', () => {
   let root = parse('a { @media {} }')
-  expect(root.first.first.name).toBe('media')
+  equal(root.first.first.name, 'media')
 })
 
-it('parses variables', () => {
+test('parses variables', () => {
   let root = parse('$var: 1;')
-  expect(root.first.prop).toBe('$var')
-  expect(root.first.value).toBe('1')
+  equal(root.first.prop, '$var')
+  equal(root.first.value, '1')
 })
 
-it('parses inline comments', () => {
+test('parses inline comments', () => {
   let root = parse('\n// a \n/* b */')
-  expect(root.nodes).toHaveLength(2)
-  expect(root.first.text).toBe('a')
-  expect(root.first.raws).toEqual({
+  equal(root.nodes.length, 2)
+  equal(root.first.text, 'a')
+  equal(root.first.raws, {
     before: '\n',
     left: ' ',
     right: ' ',
     inline: true,
     text: 'a'
   })
-  expect(root.last.text).toBe('b')
+  equal(root.last.text, 'b')
 })
 
-it('parses empty inline comments', () => {
+test('parses empty inline comments', () => {
   let root = parse('//\n// ')
-  expect(root.first.text).toBe('')
-  expect(root.first.raws).toEqual({
+  equal(root.first.text, '')
+  equal(root.first.raws, {
     before: '',
     left: '',
     right: '',
     inline: true
   })
-  expect(root.last.text).toBe('')
-  expect(root.last.raws).toEqual({
+  equal(root.last.text, '')
+  equal(root.last.raws, {
     before: '\n',
     left: ' ',
     right: '',
@@ -62,174 +64,176 @@ it('parses empty inline comments', () => {
   })
 })
 
-it('parses inline comments inside selector', () => {
+test('parses inline comments inside selector', () => {
   let root = parse('a\n// c/**/\nb { }')
-  expect(root.first.raws.selector.scss).toBe('a\n// c/**/\nb')
-  expect(root.first.raws.selector.raw).toBe('a\n/* c*//**//**/\nb')
+  equal(root.first.raws.selector.scss, 'a\n// c/**/\nb')
+  equal(root.first.raws.selector.raw, 'a\n/* c*//**//**/\nb')
 })
 
-it('does not parse comments inside brackets', () => {
+test('does not parse comments inside brackets', () => {
   let root = parse('a { cursor: url(http://ya.ru) }')
-  expect(root.first.first.value).toBe('url(http://ya.ru)')
+  equal(root.first.first.value, 'url(http://ya.ru)')
 })
 
-it('does not parse comments inside brackets and spaces', () => {
+test('does not parse comments inside brackets and spaces', () => {
   let root = parse('a { cursor: url( http://ya.ru ) }')
-  expect(root.first.first.value).toBe('url( http://ya.ru )')
+  equal(root.first.first.value, 'url( http://ya.ru )')
 })
 
-it('parses interpolation', () => {
+test('parses interpolation', () => {
   let root = parse('#{$selector}:hover { #{$prop}-size: #{$color} }')
-  expect(root.first.selector).toBe('#{$selector}:hover')
-  expect(root.first.first.prop).toBe('#{$prop}-size')
-  expect(root.first.first.value).toBe('#{$color}')
+  equal(root.first.selector, '#{$selector}:hover')
+  equal(root.first.first.prop, '#{$prop}-size')
+  equal(root.first.first.value, '#{$color}')
 })
 
-it('parses interpolation inside word', () => {
+test('parses interpolation inside word', () => {
   let root = parse('.#{class} {}')
-  expect(root.first.selector).toBe('.#{class}')
+  equal(root.first.selector, '.#{class}')
 })
 
-it('parses non-interpolation', () => {
+test('parses non-interpolation', () => {
   let root = parse('\\#{ color: black }')
-  expect(root.first.selector).toBe('\\#')
+  equal(root.first.selector, '\\#')
 })
 
-it('parses interpolation inside interpolation', () => {
+test('parses interpolation inside interpolation', () => {
   let root = parse('$column: #{"#{&}__column"};')
-  expect(root.first.value).toBe('#{"#{&}__column"}')
+  equal(root.first.value, '#{"#{&}__column"}')
 })
 
-it("parses interpolation that's the entire at-rule", () => {
+test("parses interpolation that's the entire at-rule", () => {
   let root = parse('@#{$var} param { }')
-  expect(root.first.name).toBe('#{$var}')
-  expect(root.first.params).toBe('param')
+  equal(root.first.name, '#{$var}')
+  equal(root.first.params, 'param')
 })
 
-it('parses interpolation at the beginning of at-rule', () => {
+test('parses interpolation at the beginning of at-rule', () => {
   let root = parse('@#{$var}suffix param { }')
-  expect(root.first.name).toBe('#{$var}suffix')
-  expect(root.first.params).toBe('param')
+  equal(root.first.name, '#{$var}suffix')
+  equal(root.first.params, 'param')
 })
 
-it('parses interpolation within at-rule', () => {
+test('parses interpolation within at-rule', () => {
   let root = parse('@before#{$var}after param { }')
-  expect(root.first.name).toBe('before#{$var}after')
-  expect(root.first.params).toBe('param')
+  equal(root.first.name, 'before#{$var}after')
+  equal(root.first.params, 'param')
 })
 
-it('parses interpolation right after at-rule', () => {
+test('parses interpolation right after at-rule', () => {
   let root = parse('@media#{$var} { }')
-  expect(root.first.name).toBe('media#{$var}')
-  expect(root.first.params).toBe('')
+  equal(root.first.name, 'media#{$var}')
+  equal(root.first.params, '')
 })
 
-it('parses interpolation in at-rule value', () => {
+test('parses interpolation in at-rule value', () => {
   let root = parse('@media #{$var} { }')
-  expect(root.first.name).toBe('media')
-  expect(root.first.params).toBe('#{$var}')
+  equal(root.first.name, 'media')
+  equal(root.first.params, '#{$var}')
 })
 
-it('parses interpolation in url()', () => {
+test('parses interpolation in url()', () => {
   let root = parse('image: url(#{get(path)}.png)')
-  expect(root.first.value).toBe('url(#{get(path)}.png)')
+  equal(root.first.value, 'url(#{get(path)}.png)')
 })
 
-it('parses text in rules', () => {
+test('parses text in rules', () => {
   let root = parse('a { margin:text { left: 10px; }}')
-  expect(root.first.first.selector).toBe('margin:text')
-  expect(root.first.first.first.prop).toBe('left')
+  equal(root.first.first.selector, 'margin:text')
+  equal(root.first.first.first.prop, 'left')
 })
 
-it('parses semicolon in rules', () => {
+test('parses semicolon in rules', () => {
   let root = parse('a { test(a: 1) { left: 10px; }}')
-  expect(root.first.first.selector).toBe('test(a: 1)')
-  expect(root.first.first.first.prop).toBe('left')
+  equal(root.first.first.selector, 'test(a: 1)')
+  equal(root.first.first.first.prop, 'left')
 })
 
-it('parsers prefixed pseudo in rules', () => {
+test('parsers prefixed pseudo in rules', () => {
   let root = parse('input:-moz-focusring { left: 1px }')
-  expect(root.first.selector).toBe('input:-moz-focusring')
-  expect(root.first.first.prop).toBe('left')
+  equal(root.first.selector, 'input:-moz-focusring')
+  equal(root.first.first.prop, 'left')
 })
 
-it('parses nested props as rule', () => {
+test('parses nested props as rule', () => {
   let root = parse('a { margin: { left: 10px; }}')
-  expect(root.first.first.selector).toBe('margin:')
-  expect(root.first.first.first.prop).toBe('left')
+  equal(root.first.first.selector, 'margin:')
+  equal(root.first.first.first.prop, 'left')
 
-  expect(root.first.first.source.start.line).toBe(1)
-  expect(root.first.first.source.start.column).toBe(5)
-  expect(root.first.first.source.end.line).toBe(1)
-  expect(root.first.first.source.end.column).toBe(27)
+  equal(root.first.first.source.start.line, 1)
+  equal(root.first.first.source.start.column, 5)
+  equal(root.first.first.source.end.line, 1)
+  equal(root.first.first.source.end.column, 27)
 })
 
-it('parses nested props with value', () => {
+test('parses nested props with value', () => {
   let root = parse('a { margin: 0 { left: 10px; }}')
 
-  expect(root.first.first.prop).toBe('margin')
-  expect(root.first.first.value).toBe('0')
-  expect(root.first.first.raws.between).toBe(': ')
+  equal(root.first.first.prop, 'margin')
+  equal(root.first.first.value, '0')
+  equal(root.first.first.raws.between, ': ')
 
-  expect(root.first.first.first.prop).toBe('left')
-  expect(root.first.first.first.value).toBe('10px')
+  equal(root.first.first.first.prop, 'left')
+  equal(root.first.first.first.value, '10px')
 
-  expect(root.first.first.source.start.line).toBe(1)
-  expect(root.first.first.source.start.column).toBe(5)
-  expect(root.first.first.source.end.line).toBe(1)
-  expect(root.first.first.source.end.column).toBe(29)
+  equal(root.first.first.source.start.line, 1)
+  equal(root.first.first.source.start.column, 5)
+  equal(root.first.first.source.end.line, 1)
+  equal(root.first.first.source.end.column, 29)
 })
 
-it('parses nested props with space-less digit', () => {
+test('parses nested props with space-less digit', () => {
   let root = parse('a { margin:0 { left: 10px; }}')
-  expect(root.first.first.prop).toBe('margin')
-  expect(root.first.first.value).toBe('0')
-  expect(root.first.first.first.prop).toBe('left')
+  equal(root.first.first.prop, 'margin')
+  equal(root.first.first.value, '0')
+  equal(root.first.first.first.prop, 'left')
 
-  expect(root.first.first.source.start.line).toBe(1)
-  expect(root.first.first.source.start.column).toBe(5)
-  expect(root.first.first.source.end.line).toBe(1)
-  expect(root.first.first.source.end.column).toBe(28)
+  equal(root.first.first.source.start.line, 1)
+  equal(root.first.first.source.start.column, 5)
+  equal(root.first.first.source.end.line, 1)
+  equal(root.first.first.source.end.column, 28)
 })
 
-it('parses nested props with new line as rule', () => {
+test('parses nested props with new line as rule', () => {
   let root = parse('a { \n margin  \n:0 { left: 10px; }}')
-  expect(root.first.first.selector).toBe('margin  \n:0')
+  equal(root.first.first.selector, 'margin  \n:0')
 
-  expect(root.first.first.source.start.line).toBe(2)
-  expect(root.first.first.source.start.column).toBe(2)
-  expect(root.first.first.source.end.line).toBe(3)
-  expect(root.first.first.source.end.column).toBe(18)
+  equal(root.first.first.source.start.line, 2)
+  equal(root.first.first.source.start.column, 2)
+  equal(root.first.first.source.end.line, 3)
+  equal(root.first.first.source.end.column, 18)
 })
 
-it('parses nested props with important', () => {
+test('parses nested props with important', () => {
   let root = parse('a { margin: 0!important { left: 10px; }}')
-  expect(root.first.first.prop).toBe('margin')
-  expect(root.first.first.value).toBe('0')
-  expect(root.first.first.important).toBe(true)
+  equal(root.first.first.prop, 'margin')
+  equal(root.first.first.value, '0')
+  equal(root.first.first.important, true)
 
-  expect(root.first.first.source.start.line).toBe(1)
-  expect(root.first.first.source.start.column).toBe(5)
-  expect(root.first.first.source.end.line).toBe(1)
-  expect(root.first.first.source.end.column).toBe(39)
+  equal(root.first.first.source.start.line, 1)
+  equal(root.first.first.source.start.column, 5)
+  equal(root.first.first.source.end.line, 1)
+  equal(root.first.first.source.end.column, 39)
 })
 
-it('parses interpolation with variable', () => {
+test('parses interpolation with variable', () => {
   let root = parse('&:#{$var} {}')
-  expect(root.first.selector).toBe('&:#{$var}')
+  equal(root.first.selector, '&:#{$var}')
 })
 
-it('parses comment inside comment', () => {
+test('parses comment inside comment', () => {
   let root = parse('a {\n//a/*b*/c\n}')
-  expect(root.toString()).toBe('a {\n/*a*//*b*//*c*/\n}')
+  equal(root.toString(), 'a {\n/*a*//*b*//*c*/\n}')
 })
 
-it('parses complex interpolation', () => {
+test('parses complex interpolation', () => {
   let root = parse('content: #{fn("\\"}")};')
-  expect(root.first.value).toBe('#{fn("\\"}")}')
+  equal(root.first.value, '#{fn("\\"}")}')
 })
 
-it('parses interpolation inside string', () => {
+test('parses interpolation inside string', () => {
   let root = parse('content: "#{fn("\\"}")}";')
-  expect(root.first.value).toBe('"#{fn("\\"}")}"')
+  equal(root.first.value, '"#{fn("\\"}")}"')
 })
+
+test.run()
