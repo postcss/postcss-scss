@@ -58,10 +58,7 @@
     "trailingComma": "none"
   },
   "eslintConfig": {
-    "extends": "@logux/eslint-config",
-    "rules": {
-      "consistent-return": "off"
-    }
+    "extends": "@logux/eslint-config"
   },
   "clean-publish": {
     "cleanDocs": true
