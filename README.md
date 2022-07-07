@@ -80,3 +80,11 @@ If you want Sass behaviour with removing inline comments, you can use
 [postcss-strip-inline-comments] plugin.
 
 [postcss-strip-inline-comments]: https://github.com/mummybot/postcss-strip-inline-comments
+
+
+## Security Contact
+
+To report a security vulnerability, please use the [Tidelift security contact].
+Tidelift will coordinate the fix and disclosure.
+
+[Tidelift security contact]: https://tidelift.com/security
