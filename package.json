@@ -29,10 +29,16 @@
     "unit": "uvu . '\\.test\\.js$'",
     "test": "pnpm unit && eslint . && ./test/integration.js"
   },
-  "funding": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/postcss/"
-  },
+  "funding": [
+    {
+      "type": "opencollective",
+      "url": "https://opencollective.com/postcss/"
+    },
+    {
+      "type": "tidelift",
+      "url": "https://tidelift.com/funding/github/npm/postcss-scss"
+    }
+  ],
   "peerDependencies": {
     "postcss": "^8.3.3"
   },
