@@ -51,13 +51,13 @@
   "devDependencies": {
     "@logux/eslint-config": "^47.2.0",
     "clean-publish": "^4.0.1",
-    "eslint": "^8.19.0",
+    "eslint": "^8.23.1",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.2.4",
+    "eslint-plugin-n": "^15.2.5",
     "eslint-plugin-prefer-let": "^3.0.1",
-    "eslint-plugin-promise": "^6.0.0",
-    "postcss": "^8.4.14",
+    "eslint-plugin-promise": "^6.0.1",
+    "postcss": "^8.4.16",
     "postcss-parser-tests": "^8.5.1",
     "uvu": "^0.5.6"
   },
