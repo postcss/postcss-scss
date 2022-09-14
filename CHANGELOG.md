@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.0.5
+* Fixed exports (by @phoenisx).
+
 ## 4.0.4
 * Fixed Custom Properties support.
 
