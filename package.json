@@ -23,6 +23,12 @@
       "require": "./lib/scss-syntax.js",
       "import": "./lib/scss-syntax.mjs"
     },
+    "./lib/nested-declaration": "./lib/nested-declaration.js",
+    "./lib/scss-parse": "./lib/scss-parse.js",
+    "./lib/scss-parser": "./lib/scss-parser.js",
+    "./lib/scss-stringifier": "./lib/scss-stringifier.js",
+    "./lib/scss-stringify": "./lib/scss-stringify.js",
+    "./lib/scss-tokenize": "./lib/scss-tokenize.js",
     "./package.json": "./package.json"
   },
   "scripts": {
