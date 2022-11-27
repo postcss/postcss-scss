@@ -46,19 +46,19 @@
     }
   ],
   "peerDependencies": {
-    "postcss": "^8.3.3"
+    "postcss": "^8.4.19"
   },
   "devDependencies": {
-    "@logux/eslint-config": "^47.2.0",
+    "@logux/eslint-config": "^48.0.0",
     "clean-publish": "^4.0.1",
-    "eslint": "^8.23.1",
+    "eslint": "^8.28.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-n": "^15.5.1",
     "eslint-plugin-prefer-let": "^3.0.1",
-    "eslint-plugin-promise": "^6.0.1",
-    "postcss": "^8.4.16",
-    "postcss-parser-tests": "^8.5.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "postcss": "^8.4.19",
+    "postcss-parser-tests": "^8.5.2",
     "uvu": "^0.5.6"
   },
   "prettier": {
