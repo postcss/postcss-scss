@@ -62,4 +62,14 @@ test('tokenizes multiline url()', () => {
   ])
 })
 
+test('tokenizes url() following a comma', () => {
+  run('background:center/auto,url', [
+    ['word', 'background', 0, 9],
+    [':', ':', 10],
+    ['word', 'center/auto', 11, 21],
+    ['word', ',', 22, 23],
+    ['word', 'url', 23, 25]
+  ])
+})
+
 test.run()
