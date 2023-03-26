@@ -43,6 +43,10 @@
     {
       "type": "tidelift",
       "url": "https://tidelift.com/funding/github/npm/postcss-scss"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/ai"
     }
   ],
   "peerDependencies": {
