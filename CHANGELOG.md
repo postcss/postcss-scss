@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.0.7
+* Fixed TypeScript support with `moduleResulution: bundler` (by Avi Vahl).
+
 ## 4.0.6
 * Fixed comma parsing (by Jerome Leclanche).
 
