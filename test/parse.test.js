@@ -38,9 +38,9 @@ test('parses inline comments', () => {
   equal(root.first.text, 'a')
   equal(root.first.raws, {
     before: '\n',
+    inline: true,
     left: ' ',
     right: ' ',
-    inline: true,
     text: 'a'
   })
   equal(root.last.text, 'b')
@@ -51,16 +51,16 @@ test('parses empty inline comments', () => {
   equal(root.first.text, '')
   equal(root.first.raws, {
     before: '',
+    inline: true,
     left: '',
-    right: '',
-    inline: true
+    right: ''
   })
   equal(root.last.text, '')
   equal(root.last.raws, {
     before: '\n',
+    inline: true,
     left: ' ',
-    right: '',
-    inline: true
+    right: ''
   })
 })
 

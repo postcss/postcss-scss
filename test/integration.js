@@ -7,7 +7,7 @@ let scss = require('../')
 
 testOnReal(css =>
   postcss().process(css, {
-    parser: scss,
-    map: { annotation: false }
+    map: { annotation: false },
+    parser: scss
   })
 )
