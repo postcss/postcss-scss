@@ -20,6 +20,7 @@
   "types": "lib/scss-syntax.d.ts",
   "exports": {
     ".": {
+      "types": "./lib/scss-syntax.d.ts",
       "require": "./lib/scss-syntax.js",
       "import": "./lib/scss-syntax.mjs"
     },
