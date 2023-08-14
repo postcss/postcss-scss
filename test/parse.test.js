@@ -7,7 +7,7 @@ let parse = require('../lib/scss-parse')
 eachTest((name, css, json) => {
   test('parses ' + name, () => {
     let parsed = jsonify(parse(css, { from: name }))
-    equal(parsed, json)
+    equal(JSON.parse(parsed), JSON.parse(json))
   })
 })
 
