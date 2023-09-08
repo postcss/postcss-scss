@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.0.8
+* Fixed nodes positions (by Ido Rosenthal).
+
 ## 4.0.7
 * Fixed TypeScript support with `moduleResulution: bundler` (by Avi Vahl).
 
