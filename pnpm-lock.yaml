@@ -33,11 +33,11 @@ devDependencies:
     specifier: ^6.1.1
     version: 6.1.1(eslint@8.47.0)
   postcss:
-    specifier: ^8.4.27
-    version: 8.4.27
+    specifier: ^8.4.29
+    version: 8.4.29
   postcss-parser-tests:
-    specifier: ^8.6.0
-    version: 8.6.0
+    specifier: ^8.8.0
+    version: 8.8.0
   uvu:
     specifier: ^0.5.6
     version: 0.5.6
@@ -1419,14 +1419,14 @@ packages:
     engines: {node: '>=8.6'}
     dev: true
 
-  /postcss-parser-tests@8.6.0:
-    resolution: {integrity: sha512-r5P5I4AsL62mlF9KXA1oL/Oel7+wJnwGfQnOA4fMhA54Lx1Pae+67OLmkgla3dAOIpr0FgNjAJg0zxW0CQlrUg==}
+  /postcss-parser-tests@8.8.0:
+    resolution: {integrity: sha512-vAyVrBzp7YmfpmjCG3RGhilE9+oydj6oTZYWMBwkp/3FVOdUURerTRD0w/NVegOreAj51tCPqgCwbb4AW5f5SA==}
     dependencies:
       picocolors: 1.0.0
     dev: true
 
-  /postcss@8.4.27:
-    resolution: {integrity: sha512-gY/ACJtJPSmUFPDCHtX78+01fHa64FaU4zaaWfuh1MhGJISufJAH4cun6k/8fwsHYeK4UQmENQK+tRLCFJE8JQ==}
+  /postcss@8.4.29:
+    resolution: {integrity: sha512-cbI+jaqIeu/VGqXEarWkRCCffhjgXc0qjBtXpqJhTBohMUjUQnbBr0xqX3vEKudc4iviTewcJo5ajcec5+wdJw==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.6
