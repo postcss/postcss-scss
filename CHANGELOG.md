@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 4.0.9
+* Fixed `\r` parsing to fix CVE-2023-44270.
+
 ## 4.0.8
 * Fixed nodes positions (by Ido Rosenthal).
 
